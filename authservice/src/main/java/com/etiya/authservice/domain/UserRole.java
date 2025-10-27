@@ -12,7 +12,6 @@ import java.util.UUID;
 @Entity
 @Table(name = "userroles")
 public class UserRole extends BaseEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id")
@@ -25,4 +24,6 @@ public class UserRole extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
+
+
 }

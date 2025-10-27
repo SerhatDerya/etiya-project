@@ -24,6 +24,6 @@ public interface CustomerMapper {
     CreateCustomerEvent createCustomerEventFromCustomer(Customer customer);
 
 
-//    GetListCustomerResponse getListCustomerResponseFromCustomer(Customer customer);
+    GetListCustomerResponse getListCustomerResponseFromCustomer(Customer customer);
     List<GetListCustomerResponse> getListCustomerResponseFromCustomer(List<Customer> customers);
 }

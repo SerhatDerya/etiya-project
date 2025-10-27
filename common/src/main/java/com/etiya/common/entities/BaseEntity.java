@@ -4,9 +4,13 @@ import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
 @MappedSuperclass
 public abstract class BaseEntity {
 
@@ -19,29 +23,6 @@ public abstract class BaseEntity {
     @Column(name = "deletedDate")
     private LocalDateTime deletedDate;
 
-    public LocalDateTime getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(LocalDateTime createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public LocalDateTime getUpdatedDate() {
-        return updatedDate;
-    }
-
-    public void setUpdatedDate(LocalDateTime updatedDate) {
-        this.updatedDate = updatedDate;
-    }
-
-    public LocalDateTime getDeletedDate() {
-        return deletedDate;
-    }
-
-    public void setDeletedDate(LocalDateTime deletedDate) {
-        this.deletedDate = deletedDate;
-    }
 
     @PrePersist
     protected void onCreate(){

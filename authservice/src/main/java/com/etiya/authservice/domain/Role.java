@@ -9,12 +9,12 @@ import org.springframework.security.core.GrantedAuthority;
 import java.util.Set;
 import java.util.UUID;
 
+
 @Getter
 @Setter
 @Entity
 @Table(name = "roles")
 public class Role extends BaseEntity implements GrantedAuthority {
-
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id")
@@ -27,9 +27,11 @@ public class Role extends BaseEntity implements GrantedAuthority {
     @OneToMany(mappedBy = "role",cascade = CascadeType.ALL)
     private Set<UserRole> userRoles;
 
+
     @Override
     public String getAuthority() {
         return this.name.toUpperCase(); //ADMIN
     }
+
 
 }

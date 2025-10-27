@@ -17,7 +17,6 @@ import java.util.*;
 @Entity
 @Table(name = "users")
 public class User extends BaseEntity implements UserDetails {
-
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id")
@@ -38,6 +37,11 @@ public class User extends BaseEntity implements UserDetails {
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private Set<UserRole> authorities;
 
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -69,4 +73,6 @@ public class User extends BaseEntity implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
 }
