@@ -17,7 +17,7 @@ public class CreateCustomerProducer {
     }
 
     public void produceCustomerCreated(CreateCustomerEvent event){
-        //streamBridge.send("customerCreated-out-0",event);
-        LOGGER.info(String.format("Customer created event => %s",event.firstName()));
+        streamBridge.send("customerCreated-out-0",event);
+        LOGGER.info(String.format("Customer created event => %s",event.id()));
     }
 }

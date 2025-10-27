@@ -2,8 +2,8 @@ package com.etiya.customerservice.controller;
 
 import com.etiya.customerservice.service.abstracts.CustomerService;
 import com.etiya.customerservice.service.requests.customers.CreateCustomerRequest;
-import com.etiya.customerservice.service.responses.individualcustomers.CreatedCustomerResponse;
-import com.etiya.customerservice.service.responses.individualcustomers.GetListCustomerResponse;
+import com.etiya.customerservice.service.responses.customers.CreatedCustomerResponse;
+import com.etiya.customerservice.service.responses.customers.GetListCustomerResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

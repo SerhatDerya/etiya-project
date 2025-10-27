@@ -24,19 +24,19 @@ public class Customer extends BaseEntity {
     @Column(name = "id")
     private UUID id;
 
-    @Column(name = "firstName")
+    @Column(name = "firstName",nullable = false)
     private String firstName;
 
     @Column(name = "middleName")
     private String middleName;
 
-    @Column(name = "lastName")
+    @Column(name = "lastName",nullable = false)
     private String lastName;
 
-    @Column(name = "dateOfBirth")
+    @Column(name = "dateOfBirth",nullable = false)
     private LocalDate dateOfBirth;
 
-    @Column(name = "gender")
+    @Column(name = "gender",nullable = false)
     private String gender;
 
     @Column(name = "motherName")
@@ -45,7 +45,7 @@ public class Customer extends BaseEntity {
     @Column(name = "fatherName")
     private String fatherName;
 
-    @Column(name = "natId")
+    @Column(name = "natId",nullable = false,unique = true)
     private String natId;
 
 }

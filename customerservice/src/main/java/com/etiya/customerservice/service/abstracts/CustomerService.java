@@ -1,8 +1,8 @@
 package com.etiya.customerservice.service.abstracts;
 
 import com.etiya.customerservice.service.requests.customers.CreateCustomerRequest;
-import com.etiya.customerservice.service.responses.individualcustomers.CreatedCustomerResponse;
-import com.etiya.customerservice.service.responses.individualcustomers.GetListCustomerResponse;
+import com.etiya.customerservice.service.responses.customers.CreatedCustomerResponse;
+import com.etiya.customerservice.service.responses.customers.GetListCustomerResponse;
 
 import java.util.List;
 

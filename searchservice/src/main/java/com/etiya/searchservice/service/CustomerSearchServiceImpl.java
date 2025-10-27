@@ -35,4 +35,9 @@ public class CustomerSearchServiceImpl implements CustomerSearchService{
     public List<CustomerSearch> searchAllFields(String keyword) {
         return customerSearchRepository.searchAllFields(keyword);
     }
+
+    @Override
+    public List<CustomerSearch> searchDynamic(String id, String accountNumber, String natId, String firstName, String lastName, String value) {
+        return customerSearchRepository.searchDynamic(id,accountNumber,natId,firstName,lastName,value);
+    }
 }

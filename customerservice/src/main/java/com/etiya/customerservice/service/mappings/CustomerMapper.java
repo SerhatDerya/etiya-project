@@ -1,9 +1,10 @@
 package com.etiya.customerservice.service.mappings;
 
+import com.etiya.common.events.CreateCustomerEvent;
 import com.etiya.customerservice.domain.entities.Customer;
 import com.etiya.customerservice.service.requests.customers.CreateCustomerRequest;
-import com.etiya.customerservice.service.responses.individualcustomers.CreatedCustomerResponse;
-import com.etiya.customerservice.service.responses.individualcustomers.GetListCustomerResponse;
+import com.etiya.customerservice.service.responses.customers.CreatedCustomerResponse;
+import com.etiya.customerservice.service.responses.customers.GetListCustomerResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
@@ -15,43 +16,12 @@ public interface CustomerMapper {
 
     CustomerMapper INSTANCE = Mappers.getMapper(CustomerMapper.class);
 
-    @Mapping(source = "firstName", target = "firstName")
-    @Mapping(source = "middleName", target = "middleName")
-    @Mapping(source = "lastName", target = "lastName")
-    @Mapping(source = "dateOfBirth", target = "dateOfBirth")
-    @Mapping(source = "gender", target = "gender")
-    @Mapping(source = "motherName", target = "motherName")
-    @Mapping(source = "fatherName", target = "fatherName")
-    @Mapping(source = "natId", target = "natId")
-    Customer createCustomerRequestToCustomer(CreateCustomerRequest createCustomerRequest);
 
-    @Mapping(source = "firstName", target = "firstName")
-    @Mapping(source = "middleName", target = "middleName")
-    @Mapping(source = "lastName", target = "lastName")
-    @Mapping(source = "dateOfBirth", target = "dateOfBirth")
-    @Mapping(source = "gender", target = "gender")
-    @Mapping(source = "motherName", target = "motherName")
-    @Mapping(source = "fatherName", target = "fatherName")
-    @Mapping(source = "natId", target = "natId")
-    CreatedCustomerResponse customerToCreatedCustomerResponse(Customer customer);
+    Customer customerFromCreateCustomerRequest (CreateCustomerRequest request);
 
-    @Mapping(source = "firstName", target = "firstName")
-    @Mapping(source = "middleName", target = "middleName")
-    @Mapping(source = "lastName", target = "lastName")
-    @Mapping(source = "dateOfBirth", target = "dateOfBirth")
-    @Mapping(source = "gender", target = "gender")
-    @Mapping(source = "motherName", target = "motherName")
-    @Mapping(source = "fatherName", target = "fatherName")
-    @Mapping(source = "natId", target = "natId")
-    GetListCustomerResponse customerToGetListCustomerResponse(Customer customer);
+    CreatedCustomerResponse createdCustomerResponseFromCustomer(Customer customer);
 
-    @Mapping(source = "firstName", target = "firstName")
-    @Mapping(source = "middleName", target = "middleName")
-    @Mapping(source = "lastName", target = "lastName")
-    @Mapping(source = "dateOfBirth", target = "dateOfBirth")
-    @Mapping(source = "gender", target = "gender")
-    @Mapping(source = "motherName", target = "motherName")
-    @Mapping(source = "fatherName", target = "fatherName")
-    @Mapping(source = "natId", target = "natId")
-    List<GetListCustomerResponse>  getListCustomerResponseFromCustomer(List<Customer> customers);
+    CreateCustomerEvent createCustomerEventFromCustomer(Customer customer);
+    
+    List<GetListCustomerResponse> getListCustomerResponseFromCustomer(List<Customer> customers);
 }

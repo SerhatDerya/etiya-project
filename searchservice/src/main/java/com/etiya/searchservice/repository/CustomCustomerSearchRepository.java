@@ -1,15 +1,10 @@
-package com.etiya.searchservice.service;
+package com.etiya.searchservice.repository;
 
 import com.etiya.searchservice.domain.CustomerSearch;
 
 import java.util.List;
 
-public interface CustomerSearchService {
-
-    void add(CustomerSearch customerSearch);
-    void delete(String id);
-    List<CustomerSearch> findAll();
-    List<CustomerSearch> searchAllFields(String keyword);
+public interface CustomCustomerSearchRepository {
     List<CustomerSearch> searchDynamic(
             String id,
             String accountNumber,

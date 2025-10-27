@@ -33,4 +33,15 @@ public class CustomerSearchController {
     public List<CustomerSearch> search(@RequestParam String keyword){
         return customerSearchService.searchAllFields(keyword);
     }
+    @GetMapping("search")
+    public List<CustomerSearch> search(
+            @RequestParam(required = false) String id,
+            @RequestParam(required = false) String accountNumber,
+            @RequestParam(required = false) String natId,
+            @RequestParam(required = false) String firstName,
+            @RequestParam(required = false) String lastName,
+            @RequestParam(required = false) String value
+    ) {
+        return customerSearchService.searchDynamic(id,accountNumber, natId, firstName, lastName, value);
+    }
 }
