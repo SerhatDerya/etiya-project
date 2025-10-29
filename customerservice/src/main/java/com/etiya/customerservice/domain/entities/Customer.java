@@ -33,7 +33,7 @@ public class Customer extends BaseEntity {
     @Column(name = "lastName",nullable = false)
     private String lastName;
 
-    @Column(name = "dateOfBirth",nullable = false)
+    @Column(name = "date_of_birth",nullable = false)
     private LocalDate dateOfBirth;
 
     @Column(name = "gender",nullable = false)

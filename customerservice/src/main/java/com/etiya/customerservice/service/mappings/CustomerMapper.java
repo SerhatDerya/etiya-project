@@ -16,14 +16,13 @@ public interface CustomerMapper {
 
     CustomerMapper INSTANCE = Mappers.getMapper(CustomerMapper.class);
 
-
     Customer customerFromCreateCustomerRequest (CreateCustomerRequest request);
 
     CreatedCustomerResponse createdCustomerResponseFromCustomer(Customer customer);
 
     CreateCustomerEvent createCustomerEventFromCustomer(Customer customer);
 
-
     GetListCustomerResponse getListCustomerResponseFromCustomer(Customer customer);
+
     List<GetListCustomerResponse> getListCustomerResponseFromCustomer(List<Customer> customers);
 }
