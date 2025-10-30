@@ -28,8 +28,8 @@ public class User extends BaseEntity implements UserDetails {
     @Column(name = "lastName")
     private String lastName;
 
-    @Column(name = "email")
-    private String email;
+    @Column(name = "userName")
+    private String username;
 
     @Column(name = "password")
     private String password;
@@ -44,14 +44,15 @@ public class User extends BaseEntity implements UserDetails {
     }
 
     @Override
+    public String getUsername() {
+        return this.username;
+    }
+
+    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if(this.authorities==null)
             return new HashSet<>();
         return authorities.stream().map(UserRole::getRole).toList();
-    }
-    @Override
-    public String getUsername() {
-        return this.email;
     }
 
     @Override
