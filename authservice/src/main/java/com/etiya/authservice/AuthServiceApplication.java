@@ -18,7 +18,7 @@ public class AuthServiceApplication {
 	public static void main(String[] args) throws NoSuchAlgorithmException {
 		SpringApplication.run(AuthServiceApplication.class, args);
 
-//        KeyGenerator keyGenerator = KeyGenerator.getInstance("HmacSHA256");
+//       KeyGenerator keyGenerator = KeyGenerator.getInstance("HmacSHA256");
 //		keyGenerator.init(256);
 //		SecretKey secretKey = keyGenerator.generateKey();
 //		String base64 = Encoders.BASE64.encode(secretKey.getEncoded());
