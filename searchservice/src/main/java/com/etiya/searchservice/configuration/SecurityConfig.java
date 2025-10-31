@@ -1,11 +1,11 @@
-package com.etiya.authservice.configuration;
+package com.etiya.searchservice.configuration;
+
 
 import com.etiya.common.configuration.BaseSecurityService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
-
 
 @Configuration
 public class SecurityConfig {
@@ -16,10 +16,9 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity = baseSecurityService.configureCoreSecurity(httpSecurity);
-        httpSecurity.authorizeHttpRequests(requests -> requests.anyRequest().authenticated());
-        return httpSecurity.build();
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http = baseSecurityService.configureCoreSecurity(http);
+        http.authorizeHttpRequests(requests -> requests.anyRequest().authenticated());
+        return http.build();
     }
-
 }

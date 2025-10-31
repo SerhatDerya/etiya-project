@@ -1,11 +1,15 @@
 package com.etiya.customerservice;
 
+import com.etiya.common.annotations.EnableSecurity;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
-@SpringBootApplication(scanBasePackages = {"com.etiya.common","com.etiya.customerservice"})
+//@SpringBootApplication(scanBasePackages = {"com.etiya.common","com.etiya.customerservice"})
+//@EnableDiscoveryClient
+@SpringBootApplication
 @EnableDiscoveryClient
+@EnableSecurity
 public class CustomerServiceApplication {
 
 	public static void main(String[] args) {
