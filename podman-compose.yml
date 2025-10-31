@@ -98,7 +98,7 @@ services:
       - POSTGRES_PASSWORD=123456
       - POSTGRES_DB=identitydb
     volumes:
-      - "auth-data:/var/lib/postgresql/data"
+      - "auth-data:/var/lib/postgresql"
   
 
     

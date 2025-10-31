@@ -21,7 +21,8 @@ public class BaseSecurityService {
             "/v2/api-docs",
             "/v3/api-docs",
             "/v3/api-docs/**",
-            "/api/auth/**"
+            "/api/auth/**",
+            "http://localhost:4200/**"
     };
 
     public HttpSecurity configureCoreSecurity(HttpSecurity httpSecurity) throws Exception{
