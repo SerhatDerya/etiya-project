@@ -10,7 +10,7 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = NationalIdValidator.class)
 @Documented
 public @interface NationalId {
-    String message() default "National Id must be 11 number and last digit must be even";
+    String message() default "National Id must be 11 digit and end with even number!";
 
     Class<?>[] groups() default {};
 
