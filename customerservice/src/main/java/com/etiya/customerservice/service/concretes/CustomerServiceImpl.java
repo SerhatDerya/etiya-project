@@ -3,7 +3,7 @@ package com.etiya.customerservice.service.concretes;
 import com.etiya.common.events.CreateCustomerEvent;
 import com.etiya.customerservice.domain.entities.Customer;
 import com.etiya.customerservice.repository.CustomerRepository;
-import com.etiya.customerservice.rules.CustomerBusinessRules;
+import com.etiya.customerservice.service.rules.CustomerBusinessRules;
 import com.etiya.customerservice.service.abstracts.CustomerService;
 import com.etiya.customerservice.service.mappings.CustomerMapper;
 import com.etiya.customerservice.service.requests.customers.CreateCustomerRequest;
