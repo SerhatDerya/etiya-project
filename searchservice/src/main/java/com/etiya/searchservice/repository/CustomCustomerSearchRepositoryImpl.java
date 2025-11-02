@@ -32,7 +32,7 @@ public class CustomCustomerSearchRepositoryImpl implements CustomCustomerSearchR
 //            bool.must(m -> m.term(t -> t.field("customerNumber.keyword").value(accountNumber)));
 //        }
         if (StringUtils.hasText(natId)) {
-            bool.must(m -> m.term(t -> t.field("nationalId.keyword").value(natId)));
+            bool.must(m -> m.term(t -> t.field("natId.keyword").value(natId)));
         }
         if (StringUtils.hasText(firstName)) {
             bool.must(m -> m.queryString(qs -> qs.fields("firstName").query("*"+firstName.toLowerCase()+"*")));
