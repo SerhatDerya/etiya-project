@@ -1,4 +1,4 @@
-package com.etiya.searchservice.repository;
+package com.etiya.searchservice.repository.customer;
 
 import com.etiya.searchservice.domain.CustomerSearch;
 import org.springframework.data.elasticsearch.annotations.Query;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface CustomerSearchRepository extends ElasticsearchRepository<CustomerSearch,String>,CustomCustomerSearchRepository {
+public interface CustomerSearchRepository extends ElasticsearchRepository<CustomerSearch,String>, CustomCustomerSearchRepository {
 
     @Query("""
             {

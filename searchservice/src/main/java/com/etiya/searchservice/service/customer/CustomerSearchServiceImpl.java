@@ -1,14 +1,16 @@
-package com.etiya.searchservice.service;
+package com.etiya.searchservice.service.customer;
 
+import com.etiya.searchservice.domain.ContactMediumSearch;
 import com.etiya.searchservice.domain.CustomerSearch;
-import com.etiya.searchservice.repository.CustomerSearchRepository;
+import com.etiya.searchservice.repository.customer.CustomerSearchRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Service
-public class CustomerSearchServiceImpl implements CustomerSearchService{
+public class CustomerSearchServiceImpl implements CustomerSearchService {
+
 
     private final CustomerSearchRepository customerSearchRepository;
 
@@ -37,7 +39,15 @@ public class CustomerSearchServiceImpl implements CustomerSearchService{
     }
 
     @Override
-    public List<CustomerSearch> searchDynamic(String id, String accountNumber, String natId, String firstName, String lastName, String value) {
-        return customerSearchRepository.searchDynamic(id,accountNumber,natId,firstName,lastName,value);
+    public List<CustomerSearch> searchDynamic(String id, String accountNumber, String natId, String firstName, String lastName, String mobilePhone) {
+        return customerSearchRepository.searchDynamic(id,accountNumber,natId,firstName,lastName,mobilePhone);
+    }
+
+    @Override
+    public void addContactMedium(String customerId, ContactMediumSearch contactMediums) {
+        var addCustomerContactMedium = customerSearchRepository.findById(customerId).orElseThrow(() -> new RuntimeException("Customer not found"));
+        addCustomerContactMedium.getContactMediums().removeIf(cs -> cs.getId().equals(contactMediums.getId()));
+        addCustomerContactMedium.getContactMediums().add(contactMediums);
+        customerSearchRepository.save(addCustomerContactMedium);
     }
 }

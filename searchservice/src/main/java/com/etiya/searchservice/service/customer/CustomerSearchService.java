@@ -1,5 +1,6 @@
-package com.etiya.searchservice.service;
+package com.etiya.searchservice.service.customer;
 
+import com.etiya.searchservice.domain.ContactMediumSearch;
 import com.etiya.searchservice.domain.CustomerSearch;
 
 import java.util.List;
@@ -8,6 +9,7 @@ public interface CustomerSearchService {
 
     void add(CustomerSearch customerSearch);
     void delete(String id);
+
     List<CustomerSearch> findAll();
     List<CustomerSearch> searchAllFields(String keyword);
     List<CustomerSearch> searchDynamic(
@@ -16,6 +18,11 @@ public interface CustomerSearchService {
             String natId,
             String firstName,
             String lastName,
-            String value
+            String mobilePhone
     );
+
+
+    void addContactMedium(String customerId, ContactMediumSearch contactMediums);
+
+
 }

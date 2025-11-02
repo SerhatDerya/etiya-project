@@ -1,12 +1,10 @@
-package com.etiya.customerservice.service.requests.customers;
+package com.etiya.customerservice.service.requests.customer;
 
 import com.etiya.common.validations.MinAge;
 import com.etiya.common.validations.NationalId;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,12 +1,10 @@
-package com.etiya.customerservice.service.rules;
+package com.etiya.customerservice.service.rules.customer;
 
 import com.etiya.common.crosscuttingconcerns.exceptions.types.BusinessException;
 import com.etiya.common.localization.LocalizationService;
 import com.etiya.customerservice.repository.CustomerRepository;
 import com.etiya.customerservice.service.messages.Messages;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class CustomerBusinessRules {

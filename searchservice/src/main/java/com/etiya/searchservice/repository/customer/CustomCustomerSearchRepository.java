@@ -1,4 +1,4 @@
-package com.etiya.searchservice.repository;
+package com.etiya.searchservice.repository.customer;
 
 import com.etiya.searchservice.domain.CustomerSearch;
 
@@ -11,6 +11,6 @@ public interface CustomCustomerSearchRepository {
             String natId,
             String firstName,
             String lastName,
-            String value
+            String mobilePhone
     );
 }

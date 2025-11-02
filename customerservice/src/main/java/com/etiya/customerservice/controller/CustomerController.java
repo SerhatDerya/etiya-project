@@ -1,12 +1,11 @@
 package com.etiya.customerservice.controller;
 
-import com.etiya.customerservice.service.abstracts.CustomerService;
-import com.etiya.customerservice.service.requests.customers.CreateCustomerRequest;
-import com.etiya.customerservice.service.responses.customers.CreatedCustomerResponse;
-import com.etiya.customerservice.service.responses.customers.GetListCustomerResponse;
+import com.etiya.customerservice.service.abstracts.customer.CustomerService;
+import com.etiya.customerservice.service.requests.customer.CreateCustomerRequest;
+import com.etiya.customerservice.service.responses.customer.CreatedCustomerResponse;
+import com.etiya.customerservice.service.responses.customer.GetListCustomerResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

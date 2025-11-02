@@ -5,7 +5,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Getter
@@ -13,7 +17,6 @@ import org.springframework.data.elasticsearch.annotations.Document;
 @AllArgsConstructor
 @NoArgsConstructor
 @Document(indexName = "customer-search")
-
 public class CustomerSearch {
 
 
@@ -27,6 +30,19 @@ public class CustomerSearch {
     private String fatherName;
     private String natId;
 
+    @Field(type = FieldType.Nested)
+    private List<ContactMediumSearch> contactMediums= new ArrayList<>();
 
 
+    public CustomerSearch(String id, String natId, String fatherName, String motherName, String gender, String dateOfBirth, String lastName, String middleName, String firstName) {
+        this.id = id;
+        this.natId = natId;
+        this.fatherName = fatherName;
+        this.motherName = motherName;
+        this.gender = gender;
+        this.dateOfBirth = dateOfBirth;
+        this.lastName = lastName;
+        this.middleName = middleName;
+        this.firstName = firstName;
+    }
 }

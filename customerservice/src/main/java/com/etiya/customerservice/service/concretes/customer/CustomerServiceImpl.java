@@ -1,14 +1,14 @@
-package com.etiya.customerservice.service.concretes;
+package com.etiya.customerservice.service.concretes.customer;
 
 import com.etiya.common.events.CreateCustomerEvent;
 import com.etiya.customerservice.domain.entities.Customer;
 import com.etiya.customerservice.repository.CustomerRepository;
-import com.etiya.customerservice.service.rules.CustomerBusinessRules;
-import com.etiya.customerservice.service.abstracts.CustomerService;
-import com.etiya.customerservice.service.mappings.CustomerMapper;
-import com.etiya.customerservice.service.requests.customers.CreateCustomerRequest;
-import com.etiya.customerservice.service.responses.customers.CreatedCustomerResponse;
-import com.etiya.customerservice.service.responses.customers.GetListCustomerResponse;
+import com.etiya.customerservice.service.rules.customer.CustomerBusinessRules;
+import com.etiya.customerservice.service.abstracts.customer.CustomerService;
+import com.etiya.customerservice.service.mappings.customer.CustomerMapper;
+import com.etiya.customerservice.service.requests.customer.CreateCustomerRequest;
+import com.etiya.customerservice.service.responses.customer.CreatedCustomerResponse;
+import com.etiya.customerservice.service.responses.customer.GetListCustomerResponse;
 import com.etiya.customerservice.transport.kafka.producer.customer.CreateCustomerProducer;
 import org.springframework.stereotype.Service;
 

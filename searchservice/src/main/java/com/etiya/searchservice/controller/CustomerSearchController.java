@@ -1,7 +1,7 @@
 package com.etiya.searchservice.controller;
 
 import com.etiya.searchservice.domain.CustomerSearch;
-import com.etiya.searchservice.service.CustomerSearchService;
+import com.etiya.searchservice.service.customer.CustomerSearchService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -40,8 +40,8 @@ public class CustomerSearchController {
             @RequestParam(required = false) String natId,
             @RequestParam(required = false) String firstName,
             @RequestParam(required = false) String lastName,
-            @RequestParam(required = false) String value
+            @RequestParam(required = false, name = "mobilePhone") String mobilePhone
     ) {
-        return customerSearchService.searchDynamic(id,accountNumber, natId, firstName, lastName, value);
+        return customerSearchService.searchDynamic(id,accountNumber, natId, firstName, lastName, mobilePhone);
     }
 }

@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -47,6 +48,12 @@ public class Customer extends BaseEntity {
 
     @Column(name = "natId",nullable = false,unique = true)
     private String natId;
+
+    @OneToMany(mappedBy = "customer",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY)
+    private List<ContactMedium> contactMediums;
 
 }
 

@@ -1,12 +1,11 @@
-package com.etiya.customerservice.service.mappings;
+package com.etiya.customerservice.service.mappings.customer;
 
 import com.etiya.common.events.CreateCustomerEvent;
 import com.etiya.customerservice.domain.entities.Customer;
-import com.etiya.customerservice.service.requests.customers.CreateCustomerRequest;
-import com.etiya.customerservice.service.responses.customers.CreatedCustomerResponse;
-import com.etiya.customerservice.service.responses.customers.GetListCustomerResponse;
+import com.etiya.customerservice.service.requests.customer.CreateCustomerRequest;
+import com.etiya.customerservice.service.responses.customer.CreatedCustomerResponse;
+import com.etiya.customerservice.service.responses.customer.GetListCustomerResponse;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
