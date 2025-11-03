@@ -11,6 +11,7 @@ import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
+import java.util.Collections;
 import java.util.List;
 
 @Repository
@@ -23,44 +24,45 @@ public class CustomCustomerSearchRepositoryImpl implements CustomCustomerSearchR
 
     @Override
     public List<CustomerSearch> searchDynamic(String id, String accountNumber, String natId, String firstName, String lastName, String mobilePhone) {
+
+        if (!StringUtils.hasText(id)
+                && !StringUtils.hasText(accountNumber)
+                && !StringUtils.hasText(natId)
+                && !StringUtils.hasText(firstName)
+                && !StringUtils.hasText(lastName)
+                && !StringUtils.hasText(mobilePhone)) {
+            return Collections.emptyList();
+        }
+
         BoolQuery.Builder bool = QueryBuilders.bool();
 
         if (StringUtils.hasText(id)) {
             bool.must(m -> m.term(t -> t.field("id.keyword").value(id)));
         }
+
         if (StringUtils.hasText(mobilePhone)) {
-            bool.must(m -> m.matchPhrase(p -> p.field("contactMediums.mobilePhone.keyword").query(mobilePhone)));
+            bool.must(m -> m.nested(n -> n
+                    .path("contactMediums")
+                    .query(nb -> nb.match(t -> t.field("contactMediums.mobilePhone").query(mobilePhone)))));
         }
-//        if (StringUtils.hasText(mobilePhone)) {
-//            String normalizedPhone = mobilePhone.replaceAll("[\\s]", "");
-//            String query = String.format("(\"%s\" OR \"%s\")", mobilePhone, normalizedPhone);
-//
-//            bool.must(m -> m.queryString(q -> q
-//                    .fields("contactMediums.mobilePhone.keyword")
-//                    .query(query)
-//            ));
-//        }
 
         if (StringUtils.hasText(natId)) {
             bool.must(m -> m.term(t -> t.field("natId.keyword").value(natId)));
         }
+
         if (StringUtils.hasText(firstName)) {
-            bool.must(m -> m.queryString(qs -> qs.fields("firstName").query("*"+firstName.toLowerCase()+"*")));
+            bool.must(m -> m.queryString(qs -> qs.fields("firstName").query("*" + firstName.toLowerCase() + "*")));
         }
+
         if (StringUtils.hasText(lastName)) {
-            bool.must(m -> m.queryString(qs -> qs.fields("lastName").query("*"+lastName.toLowerCase()+"*")));
+            bool.must(m -> m.queryString(qs -> qs.fields("lastName").query("*" + lastName.toLowerCase() + "*")));
         }
 
         Query query = bool.build()._toQuery();
-        NativeQuery nativeQuery = NativeQuery.builder()
-                .withQuery(query)
-                .build();
+        NativeQuery nativeQuery = NativeQuery.builder().withQuery(query).build();
 
-        SearchHits<CustomerSearch> hits =
-                elasticsearchOperations.search(nativeQuery, CustomerSearch.class);
-
+        SearchHits<CustomerSearch> hits = elasticsearchOperations.search(nativeQuery, CustomerSearch.class);
         return hits.stream().map(SearchHit::getContent).toList();
-    }
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------
@@ -87,6 +89,20 @@ public class CustomCustomerSearchRepositoryImpl implements CustomCustomerSearchR
 //                    ))
 //            ));
 //        }
+// ---------------------------------------------------------------------------------------------------------------------------------
+
+//        if (StringUtils.hasText(mobilePhone)) {
+//            bool.must(m -> m.term(p -> p.field("contactMediums.mobilePhone.keyword").value(mobilePhone)));
+//        }
+//        if (StringUtils.hasText(mobilePhone)) {
+//            bool.must(m -> m.nested(n -> n
+//                    .path("contactMediums")
+//                    .query(q -> q
+//                            .term(t -> t.field("contactMediums.mobilePhone.keyword").value(mobilePhone))
+//                    )
+//            ));
+//        }
 
 
+    }
 }

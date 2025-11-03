@@ -16,7 +16,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(indexName = "customer-search")
+@Document(indexName = "customer-search",createIndex = true)
 public class CustomerSearch {
 
 
@@ -33,16 +33,15 @@ public class CustomerSearch {
     @Field(type = FieldType.Nested)
     private List<ContactMediumSearch> contactMediums= new ArrayList<>();
 
-
-    public CustomerSearch(String id, String natId, String fatherName, String motherName, String gender, String dateOfBirth, String lastName, String middleName, String firstName) {
+    public CustomerSearch(String id, String firstName, String middleName, String lastName, String dateOfBirth, String gender, String motherName, String fatherName, String natId) {
         this.id = id;
-        this.natId = natId;
-        this.fatherName = fatherName;
-        this.motherName = motherName;
-        this.gender = gender;
-        this.dateOfBirth = dateOfBirth;
-        this.lastName = lastName;
-        this.middleName = middleName;
         this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        this.gender = gender;
+        this.motherName = motherName;
+        this.fatherName = fatherName;
+        this.natId = natId;
     }
 }

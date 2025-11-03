@@ -40,8 +40,7 @@ public class CustomerSearchController {
             @RequestParam(required = false) String natId,
             @RequestParam(required = false) String firstName,
             @RequestParam(required = false) String lastName,
-            @RequestParam(required = false, name = "mobilePhone") String mobilePhone
-    ) {
+            @RequestParam(required = false) String mobilePhone) {
         return customerSearchService.searchDynamic(id,accountNumber, natId, firstName, lastName, mobilePhone);
     }
 }

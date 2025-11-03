@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 //@SpringBootApplication(scanBasePackages = {"com.etiya.common","com.etiya.customerservice"})
-//@EnableDiscoveryClient
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableSecurity

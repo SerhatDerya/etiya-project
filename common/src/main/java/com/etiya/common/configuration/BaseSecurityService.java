@@ -2,8 +2,10 @@ package com.etiya.common.configuration;
 
 
 import com.etiya.common.filters.JwtAuthFilter;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Service;
 
@@ -32,3 +34,6 @@ public class BaseSecurityService {
         return httpSecurity;
     }
 }
+
+//token hatasi alinca her exceptionda 403-401 hatasi firlatiyor bunu token yada role hatasi olarak ayarlamak istiyorum.
+//.exceptionHandling(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED) entry point yazilcak bak.
