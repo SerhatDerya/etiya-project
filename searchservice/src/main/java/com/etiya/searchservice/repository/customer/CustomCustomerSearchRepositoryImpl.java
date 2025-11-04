@@ -4,6 +4,7 @@ import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import co.elastic.clients.elasticsearch._types.query_dsl.QueryBuilders;
 import com.etiya.searchservice.domain.CustomerSearch;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.client.elc.NativeQuery;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.SearchHit;
@@ -24,6 +25,7 @@ public class CustomCustomerSearchRepositoryImpl implements CustomCustomerSearchR
 
     @Override
     public List<CustomerSearch> searchDynamic(String id, String accountNumber, String natId, String firstName, String lastName, String mobilePhone) {
+
 
         if (!StringUtils.hasText(id)
                 && !StringUtils.hasText(accountNumber)
@@ -59,7 +61,7 @@ public class CustomCustomerSearchRepositoryImpl implements CustomCustomerSearchR
         }
 
         Query query = bool.build()._toQuery();
-        NativeQuery nativeQuery = NativeQuery.builder().withQuery(query).build();
+        NativeQuery nativeQuery = NativeQuery.builder().withQuery(query).withPageable(PageRequest.of(0,1000)).build();
 
         SearchHits<CustomerSearch> hits = elasticsearchOperations.search(nativeQuery, CustomerSearch.class);
         return hits.stream().map(SearchHit::getContent).toList();
