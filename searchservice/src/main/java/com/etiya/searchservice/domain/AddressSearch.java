@@ -1,6 +1,5 @@
 package com.etiya.searchservice.domain;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,18 +11,23 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ContactMediumSearch {
-
+public class AddressSearch {
     @Field(type = FieldType.Keyword, index = true, docValues = true)
     private String id;
     @Field(type = FieldType.Keyword, index = true, docValues = true)
-    private String email;
+    private String title;
     @Field(type = FieldType.Keyword, index = true, docValues = true)
-    private String homePhone;
+    private String street;
     @Field(type = FieldType.Keyword, index = true, docValues = true)
-    private String mobilePhone;
+    private String houseNumber;
     @Field(type = FieldType.Keyword, index = true, docValues = true)
-    private String fax;
+    private String description;
+    @Field(type = FieldType.Keyword, index = true, docValues = true)
+    private Boolean isDefault;
     @Field(type = FieldType.Keyword, index = true, docValues = true)
     private String customerId;
+    @Field(type = FieldType.Keyword, index = true, docValues = true)
+    private String cityId;
+    @Field(type = FieldType.Keyword, index = true, docValues = true)
+    private String cityName;
 }

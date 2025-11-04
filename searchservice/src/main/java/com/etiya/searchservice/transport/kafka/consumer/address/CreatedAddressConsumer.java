@@ -1,0 +1,40 @@
+package com.etiya.searchservice.transport.kafka.consumer.address;
+
+import com.etiya.common.events.CreateAddressEvent;
+import com.etiya.searchservice.domain.AddressSearch;
+import com.etiya.searchservice.service.customer.CustomerSearchService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import java.util.function.Consumer;
+
+@Configuration
+public class CreatedAddressConsumer {
+    private final CustomerSearchService customerSearchService;
+    private final Logger LOGGER = LoggerFactory.getLogger(CreatedAddressConsumer.class);
+
+    public CreatedAddressConsumer(CustomerSearchService customerSearchService) {
+        this.customerSearchService = customerSearchService;
+
+    }
+    @Bean
+    public Consumer<CreateAddressEvent> addressCreated(){
+        return event -> {
+          AddressSearch addressSearch = new AddressSearch(
+                  event.id(),
+                  event.title(),
+                  event.street(),
+                  event.houseNumber(),
+                  event.description(),
+                  event.isDefault(),
+                  event.customerId(),
+                  event.cityId(),
+                  event.cityName());
+          customerSearchService.addAddress(event.customerId(),  addressSearch);
+            LOGGER.info(String.format("Consumed Address => %s,%s,%s",event.id(),event.customerId(),event.cityId()));
+
+        };
+    }
+}

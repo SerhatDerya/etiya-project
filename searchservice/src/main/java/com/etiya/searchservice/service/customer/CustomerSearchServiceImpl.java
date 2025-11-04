@@ -1,5 +1,6 @@
 package com.etiya.searchservice.service.customer;
 
+import com.etiya.searchservice.domain.AddressSearch;
 import com.etiya.searchservice.domain.ContactMediumSearch;
 import com.etiya.searchservice.domain.CustomerSearch;
 import com.etiya.searchservice.repository.customer.CustomerSearchRepository;
@@ -49,5 +50,13 @@ public class CustomerSearchServiceImpl implements CustomerSearchService {
         addCustomerContactMedium.getContactMediums().removeIf(cs -> cs.getId().equals(contactMediums.getId()));
         addCustomerContactMedium.getContactMediums().add(contactMediums);
         customerSearchRepository.save(addCustomerContactMedium);
+    }
+
+    @Override
+    public void addAddress(String customerId, AddressSearch addressSearch) {
+        var addCustomerAddress = customerSearchRepository.findById(customerId).orElseThrow(() -> new RuntimeException("Customer not found"));
+        addCustomerAddress.getAddressSearches().removeIf(as -> as.getIsDefault().equals(addressSearch.getIsDefault()));
+        addCustomerAddress.getAddressSearches().add(addressSearch);
+        customerSearchRepository.save(addCustomerAddress);
     }
 }

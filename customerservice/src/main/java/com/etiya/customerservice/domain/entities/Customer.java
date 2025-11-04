@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -55,5 +54,10 @@ public class Customer extends BaseEntity {
             fetch = FetchType.LAZY)
     private List<ContactMedium> contactMediums;
 
+    @OneToMany(mappedBy = "customer",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private List<Address> addresses;
 }
 

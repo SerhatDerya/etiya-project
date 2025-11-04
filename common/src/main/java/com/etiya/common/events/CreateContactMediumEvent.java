@@ -1,6 +1,6 @@
 package com.etiya.common.events;
 
-import java.util.UUID;
+
 
 public record CreateContactMediumEvent(String id,
                                         String email,
