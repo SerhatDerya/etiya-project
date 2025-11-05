@@ -26,6 +26,7 @@ public class CreatedCustomerConsumer {
         return event -> {
             CustomerSearch customerSearch = new CustomerSearch(
                     event.id(),
+                    event.customerNumber(),
                     event.firstName(),
                     event.middleName(),
                     event.lastName(),

@@ -26,12 +26,12 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public CreatedAddressResponse add(CreateAddressRequest request) {
         Address address = AddressMapper.INSTANCE.addressFromCreateAddressRequest(request);
-        Address createdAddress = addressRepository.save(address);
-        Address result = addressRepository.findByIdWithCity(createdAddress.getId())
+        Address result = addressRepository.save(address);
+        Address fullAddress = addressRepository.findByIdWithCity(result.getId())
                 .orElseThrow(() -> new RuntimeException("Address bulunamadı"));
-        CreateAddressEvent event = AddressMapper.INSTANCE.createAddressEventFromAddress(result);
+        CreateAddressEvent event = AddressMapper.INSTANCE.createAddressEventFromAddress(fullAddress);
         createAddressProducer.produceAddressCreated(event);
-        CreatedAddressResponse response = AddressMapper.INSTANCE.createdAddressResponseFromAddress(createdAddress);
+        CreatedAddressResponse response = AddressMapper.INSTANCE.createdAddressResponseFromAddress(result);
         return response;
     }
 

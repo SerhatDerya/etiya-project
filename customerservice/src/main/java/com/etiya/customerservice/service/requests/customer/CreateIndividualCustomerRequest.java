@@ -17,7 +17,7 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateCustomerRequest {
+public class CreateIndividualCustomerRequest {
 
     @NotBlank(message = "firstName is required")
     @Size(min = 2, max = 20, message = "First Name should be between 2 and 50 character ")

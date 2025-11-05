@@ -21,6 +21,7 @@ public class CustomerSearch {
 
 
     private String id;
+    private String customerNumber;
     private String firstName;
     private String middleName;
     private String lastName;
@@ -35,8 +36,9 @@ public class CustomerSearch {
     @Field(type = FieldType.Nested)
     private List<AddressSearch> addressSearches= new ArrayList<>();
 
-    public CustomerSearch(String id, String firstName, String middleName, String lastName, String dateOfBirth, String gender, String motherName, String fatherName, String natId) {
+    public CustomerSearch(String id,String customerNumber, String firstName, String middleName, String lastName, String dateOfBirth, String gender, String motherName, String fatherName, String natId) {
         this.id = id;
+        this.customerNumber = customerNumber;
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;

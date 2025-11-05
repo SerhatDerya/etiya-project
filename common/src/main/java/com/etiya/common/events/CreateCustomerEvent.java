@@ -3,6 +3,7 @@ package com.etiya.common.events;
 
 
 public record CreateCustomerEvent(String id,
+                                  String customerNumber,
                                   String firstName,
                                   String middleName,
                                   String lastName,

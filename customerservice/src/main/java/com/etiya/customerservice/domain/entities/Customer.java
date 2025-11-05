@@ -17,6 +17,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Entity
 @Table(name = "customers")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Customer extends BaseEntity {
 
     @Id
@@ -24,29 +25,17 @@ public class Customer extends BaseEntity {
     @Column(name = "id")
     private UUID id;
 
-    @Column(name = "firstName",nullable = false)
-    private String firstName;
+    @Column(name = "customer_number")
+    private String customerNumber;
 
-    @Column(name = "middleName")
-    private String middleName;
-
-    @Column(name = "lastName",nullable = false)
-    private String lastName;
-
-    @Column(name = "date_of_birth",nullable = false)
-    private LocalDate dateOfBirth;
-
-    @Column(name = "gender",nullable = false)
-    private String gender;
-
-    @Column(name = "motherName")
-    private String motherName;
-
-    @Column(name = "fatherName")
-    private String fatherName;
-
-    @Column(name = "natId",nullable = false,unique = true)
-    private String natId;
+    @PrePersist
+    public void generateCustomerNumber()
+    {
+        String prefix = "CUST-";
+        String year = String.valueOf(java.time.Year.now().getValue());
+        String randomPart = String.format("%04d", new java.util.Random().nextInt(10000));
+        this.customerNumber = prefix + year + '-' + randomPart;
+    }
 
     @OneToMany(mappedBy = "customer",
             cascade = CascadeType.ALL,
