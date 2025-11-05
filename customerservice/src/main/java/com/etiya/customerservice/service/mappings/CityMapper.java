@@ -1,4 +1,4 @@
-package com.etiya.customerservice.service.mappings.city;
+package com.etiya.customerservice.service.mappings;
 
 
 import com.etiya.customerservice.domain.entities.City;

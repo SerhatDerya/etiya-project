@@ -1,7 +1,6 @@
-package com.etiya.customerservice.service.mappings.customer;
+package com.etiya.customerservice.service.mappings;
 
 import com.etiya.common.events.CreateCustomerEvent;
-import com.etiya.customerservice.domain.entities.Customer;
 import com.etiya.customerservice.domain.entities.IndividualCustomer;
 import com.etiya.customerservice.service.requests.customer.CreateIndividualCustomerRequest;
 import com.etiya.customerservice.service.responses.customer.CreatedIndividualCustomerResponse;

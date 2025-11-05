@@ -35,6 +35,8 @@ public class CustomerSearch {
     private List<ContactMediumSearch> contactMediums= new ArrayList<>();
     @Field(type = FieldType.Nested)
     private List<AddressSearch> addressSearches= new ArrayList<>();
+    @Field(type = FieldType.Nested)
+    private List<BillingAccountSearch> billingAccountSearches= new ArrayList<>();
 
     public CustomerSearch(String id,String customerNumber, String firstName, String middleName, String lastName, String dateOfBirth, String gender, String motherName, String fatherName, String natId) {
         this.id = id;

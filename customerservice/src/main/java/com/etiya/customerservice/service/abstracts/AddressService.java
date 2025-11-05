@@ -1,4 +1,4 @@
-package com.etiya.customerservice.service.abstracts.address;
+package com.etiya.customerservice.service.abstracts;
 
 import com.etiya.customerservice.service.requests.address.CreateAddressRequest;
 import com.etiya.customerservice.service.responses.address.CreatedAddressResponse;

@@ -1,15 +1,14 @@
-package com.etiya.customerservice.service.concretes.city;
+package com.etiya.customerservice.service.concretes;
 
 import com.etiya.customerservice.domain.entities.City;
 import com.etiya.customerservice.repository.CityRepository;
-import com.etiya.customerservice.service.abstracts.city.CityService;
-import com.etiya.customerservice.service.mappings.city.CityMapper;
+import com.etiya.customerservice.service.abstracts.CityService;
+import com.etiya.customerservice.service.mappings.CityMapper;
 import com.etiya.customerservice.service.requests.city.CreateCityRequest;
 import com.etiya.customerservice.service.responses.city.CreatedCityResponse;
 import com.etiya.customerservice.service.responses.city.GetListCityResponse;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

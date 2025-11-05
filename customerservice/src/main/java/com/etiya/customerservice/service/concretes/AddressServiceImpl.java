@@ -1,10 +1,10 @@
-package com.etiya.customerservice.service.concretes.address;
+package com.etiya.customerservice.service.concretes;
 
 import com.etiya.common.events.CreateAddressEvent;
 import com.etiya.customerservice.domain.entities.Address;
 import com.etiya.customerservice.repository.AddressRepository;
-import com.etiya.customerservice.service.abstracts.address.AddressService;
-import com.etiya.customerservice.service.mappings.address.AddressMapper;
+import com.etiya.customerservice.service.abstracts.AddressService;
+import com.etiya.customerservice.service.mappings.AddressMapper;
 import com.etiya.customerservice.service.requests.address.CreateAddressRequest;
 import com.etiya.customerservice.service.responses.address.CreatedAddressResponse;
 import com.etiya.customerservice.service.responses.address.GetListAddressResponse;

@@ -1,4 +1,4 @@
-package com.etiya.customerservice.service.abstracts.city;
+package com.etiya.customerservice.service.abstracts;
 
 import com.etiya.customerservice.service.requests.city.CreateCityRequest;
 import com.etiya.customerservice.service.responses.city.CreatedCityResponse;

@@ -1,10 +1,10 @@
-package com.etiya.customerservice.service.concretes.contactMedium;
+package com.etiya.customerservice.service.concretes;
 
 import com.etiya.common.events.CreateContactMediumEvent;
 import com.etiya.customerservice.domain.entities.ContactMedium;
 import com.etiya.customerservice.repository.ContactMediumRepository;
-import com.etiya.customerservice.service.abstracts.contactMedium.ContactMediumService;
-import com.etiya.customerservice.service.mappings.contactMedium.ContactMediumMapper;
+import com.etiya.customerservice.service.abstracts.ContactMediumService;
+import com.etiya.customerservice.service.mappings.ContactMediumMapper;
 import com.etiya.customerservice.service.requests.contactMedium.CreateContactMediumRequest;
 import com.etiya.customerservice.service.responses.contactMedium.CreatedContactMediumResponse;
 import com.etiya.customerservice.service.responses.contactMedium.GetListContactMediumReponse;

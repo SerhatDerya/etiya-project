@@ -1,4 +1,4 @@
-package com.etiya.customerservice.service.abstracts.contactMedium;
+package com.etiya.customerservice.service.abstracts;
 
 
 import com.etiya.customerservice.service.requests.contactMedium.CreateContactMediumRequest;

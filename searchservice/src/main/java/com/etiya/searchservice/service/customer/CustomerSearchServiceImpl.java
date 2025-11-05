@@ -1,6 +1,7 @@
 package com.etiya.searchservice.service.customer;
 
 import com.etiya.searchservice.domain.AddressSearch;
+import com.etiya.searchservice.domain.BillingAccountSearch;
 import com.etiya.searchservice.domain.ContactMediumSearch;
 import com.etiya.searchservice.domain.CustomerSearch;
 import com.etiya.searchservice.repository.customer.CustomerSearchRepository;
@@ -55,8 +56,17 @@ public class CustomerSearchServiceImpl implements CustomerSearchService {
     @Override
     public void addAddress(String customerId, AddressSearch addressSearch) {
         var addCustomerAddress = customerSearchRepository.findById(customerId).orElseThrow(() -> new RuntimeException("Customer not found"));
-        addCustomerAddress.getAddressSearches().removeIf(as -> as.getIsDefault().equals(addressSearch.getIsDefault()));
+        addCustomerAddress.getAddressSearches().removeIf(as -> as.getId().equals(addressSearch.getId()));
         addCustomerAddress.getAddressSearches().add(addressSearch);
         customerSearchRepository.save(addCustomerAddress);
+    }
+
+    @Override
+    public void addBillingAccount(String customerId, BillingAccountSearch billingAccountSearch) {
+        var addCustomerBillingAccount = customerSearchRepository.findById(customerId).orElseThrow(() -> new RuntimeException("Customer  not found"));
+        addCustomerBillingAccount.getBillingAccountSearches().removeIf(bas -> bas.getId().equals(billingAccountSearch.getId()));
+        addCustomerBillingAccount.getBillingAccountSearches().add(billingAccountSearch);
+        customerSearchRepository.save(addCustomerBillingAccount);
+
     }
 }

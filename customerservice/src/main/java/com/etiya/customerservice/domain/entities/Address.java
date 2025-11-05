@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -35,6 +36,9 @@ public class Address extends BaseEntity {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "isDefault")
+    private Boolean isDefault;
+
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "city_id", nullable = false)
     private City city;
@@ -43,8 +47,13 @@ public class Address extends BaseEntity {
     @JoinColumn(name = "customer_id",nullable = false)
     private Customer customer;
 
-    @Column(name = "isDefault")
-    private Boolean isDefault;
+    @OneToMany(mappedBy = "address",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY)
+    private List<BillingAccount> billingAccounts;
+
+
 
 
 

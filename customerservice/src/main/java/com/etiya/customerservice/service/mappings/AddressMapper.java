@@ -1,4 +1,4 @@
-package com.etiya.customerservice.service.mappings.address;
+package com.etiya.customerservice.service.mappings;
 
 import com.etiya.common.events.CreateAddressEvent;
 import com.etiya.customerservice.domain.entities.Address;
@@ -29,9 +29,6 @@ public interface AddressMapper {
     @Mapping(target = "cityId",source = "city.id")
     @Mapping(target = "customerId",source = "customer.id")
     GetListAddressResponse getListAddressResponseFromAddress(Address address);
-    @Mapping(target = "cityName",source = "city.name")
-    @Mapping(target = "cityId",source = "city.id")
-    @Mapping(target = "customerId",source = "customer.id")
     List<GetListAddressResponse> getListAddressResponseFromAddress(List<Address> address);
 
     @Mapping(target = "cityName",source = "city.name")

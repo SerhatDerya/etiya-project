@@ -1,6 +1,6 @@
 package com.etiya.customerservice.controller;
 
-import com.etiya.customerservice.service.abstracts.customer.IndividualCustomerService;
+import com.etiya.customerservice.service.abstracts.IndividualCustomerService;
 import com.etiya.customerservice.service.requests.customer.CreateIndividualCustomerRequest;
 import com.etiya.customerservice.service.responses.customer.CreatedIndividualCustomerResponse;
 import com.etiya.customerservice.service.responses.customer.GetListIndividualCustomerResponse;

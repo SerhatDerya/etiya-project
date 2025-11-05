@@ -1,7 +1,7 @@
 package com.etiya.customerservice.controller;
 
 
-import com.etiya.customerservice.service.abstracts.contactMedium.ContactMediumService;
+import com.etiya.customerservice.service.abstracts.ContactMediumService;
 import com.etiya.customerservice.service.requests.contactMedium.CreateContactMediumRequest;
 import com.etiya.customerservice.service.responses.contactMedium.CreatedContactMediumResponse;
 import com.etiya.customerservice.service.responses.contactMedium.GetListContactMediumReponse;

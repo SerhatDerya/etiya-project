@@ -1,6 +1,7 @@
 package com.etiya.searchservice.service.customer;
 
 import com.etiya.searchservice.domain.AddressSearch;
+import com.etiya.searchservice.domain.BillingAccountSearch;
 import com.etiya.searchservice.domain.ContactMediumSearch;
 import com.etiya.searchservice.domain.CustomerSearch;
 
@@ -25,6 +26,7 @@ public interface CustomerSearchService {
 
     void addContactMedium(String customerId, ContactMediumSearch contactMediums);
     void addAddress(String customerId, AddressSearch addressSearch);
+    void addBillingAccount(String customerId, BillingAccountSearch billingAccountSearch);
 
 
 }

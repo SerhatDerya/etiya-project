@@ -1,12 +1,11 @@
-package com.etiya.customerservice.service.concretes.customer;
+package com.etiya.customerservice.service.concretes;
 
 import com.etiya.common.events.CreateCustomerEvent;
-import com.etiya.customerservice.domain.entities.Customer;
 import com.etiya.customerservice.domain.entities.IndividualCustomer;
 import com.etiya.customerservice.repository.IndividualCustomerRepository;
 import com.etiya.customerservice.service.rules.customer.IndividualCustomerBusinessRules;
-import com.etiya.customerservice.service.abstracts.customer.IndividualCustomerService;
-import com.etiya.customerservice.service.mappings.customer.IndividualCustomerMapper;
+import com.etiya.customerservice.service.abstracts.IndividualCustomerService;
+import com.etiya.customerservice.service.mappings.IndividualCustomerMapper;
 import com.etiya.customerservice.service.requests.customer.CreateIndividualCustomerRequest;
 import com.etiya.customerservice.service.responses.customer.CreatedIndividualCustomerResponse;
 import com.etiya.customerservice.service.responses.customer.GetListIndividualCustomerResponse;

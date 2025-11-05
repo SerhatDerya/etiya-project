@@ -6,6 +6,7 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface CustomerSearchRepository extends ElasticsearchRepository<CustomerSearch,String>, CustomCustomerSearchRepository {
@@ -20,5 +21,20 @@ public interface CustomerSearchRepository extends ElasticsearchRepository<Custom
             """)
     List<CustomerSearch> searchAllFields(String keyword);
 
-
+//    @Query("""
+//            {
+//            "nested": {
+//            "path": "addressSearches",
+//            "query": {
+//            "bool": {
+//            "must": [{ "term": { "id": "?1" } },{ "term": { "customerId": "?0" } }]
+//            }
+//            }
+//            }
+//            }
+//            """)
+//    Optional<CustomerSearch> findByCustomerIdAndAddressId(String customerId, String addressId);
 }
+
+
+

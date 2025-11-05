@@ -1,6 +1,6 @@
 package com.etiya.customerservice.controller;
 
-import com.etiya.customerservice.service.abstracts.address.AddressService;
+import com.etiya.customerservice.service.abstracts.AddressService;
 import com.etiya.customerservice.service.requests.address.CreateAddressRequest;
 import com.etiya.customerservice.service.responses.address.CreatedAddressResponse;
 import com.etiya.customerservice.service.responses.address.GetListAddressResponse;

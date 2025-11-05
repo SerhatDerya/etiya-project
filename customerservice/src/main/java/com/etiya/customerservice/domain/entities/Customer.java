@@ -48,5 +48,11 @@ public class Customer extends BaseEntity {
             cascade = CascadeType.ALL,
             orphanRemoval = true)
     private List<Address> addresses;
+
+    @OneToMany(mappedBy = "customer",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY)
+    private List<BillingAccount> billingAccounts;
 }
 

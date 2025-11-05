@@ -1,4 +1,4 @@
-package com.etiya.customerservice.service.abstracts.customer;
+package com.etiya.customerservice.service.abstracts;
 
 import com.etiya.customerservice.service.requests.customer.CreateIndividualCustomerRequest;
 import com.etiya.customerservice.service.responses.customer.CreatedIndividualCustomerResponse;

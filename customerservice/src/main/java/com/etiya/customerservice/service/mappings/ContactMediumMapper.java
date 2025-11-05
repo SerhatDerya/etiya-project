@@ -1,4 +1,4 @@
-package com.etiya.customerservice.service.mappings.contactMedium;
+package com.etiya.customerservice.service.mappings;
 
 
 import com.etiya.common.events.CreateContactMediumEvent;
@@ -6,7 +6,6 @@ import com.etiya.customerservice.domain.entities.ContactMedium;
 import com.etiya.customerservice.service.requests.contactMedium.CreateContactMediumRequest;
 import com.etiya.customerservice.service.responses.contactMedium.CreatedContactMediumResponse;
 import com.etiya.customerservice.service.responses.contactMedium.GetListContactMediumReponse;
-import org.hibernate.annotations.Target;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
@@ -27,7 +26,6 @@ public interface ContactMediumMapper {
 
     @Mapping(target = "customerId", source = "customer.id")
     GetListContactMediumReponse getListContactMediumResponseFromContactMedium(ContactMedium contactMedium);
-    @Mapping(target = "customerId", source = "customer.id")
     List<GetListContactMediumReponse>  getListContactMediumResponseFromContactMedium(List<ContactMedium> contactMediums);
 
     @Mapping(target = "customerId", source = "customer.id")

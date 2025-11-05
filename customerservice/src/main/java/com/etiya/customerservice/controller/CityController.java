@@ -1,6 +1,6 @@
 package com.etiya.customerservice.controller;
 
-import com.etiya.customerservice.service.abstracts.city.CityService;
+import com.etiya.customerservice.service.abstracts.CityService;
 import com.etiya.customerservice.service.requests.city.CreateCityRequest;
 import com.etiya.customerservice.service.responses.city.CreatedCityResponse;
 import com.etiya.customerservice.service.responses.city.GetListCityResponse;
