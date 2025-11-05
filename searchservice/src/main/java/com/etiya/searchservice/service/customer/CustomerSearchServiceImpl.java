@@ -55,7 +55,7 @@ public class CustomerSearchServiceImpl implements CustomerSearchService {
     @Override
     public void addAddress(String customerId, AddressSearch addressSearch) {
         var addCustomerAddress = customerSearchRepository.findById(customerId).orElseThrow(() -> new RuntimeException("Customer not found"));
-        addCustomerAddress.getAddressSearches().removeIf(as -> as.getIsDefault().equals(addressSearch.getIsDefault()));
+        addCustomerAddress.getAddressSearches().removeIf(as -> as.getId().equals(addressSearch.getId()));
         addCustomerAddress.getAddressSearches().add(addressSearch);
         customerSearchRepository.save(addCustomerAddress);
     }
