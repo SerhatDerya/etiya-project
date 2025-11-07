@@ -1,7 +1,7 @@
 package com.etiya.customerservice.service.mappings;
 
 
-import com.etiya.common.events.CreateContactMediumEvent;
+import com.etiya.common.events.contactMedium.CreateContactMediumEvent;
 import com.etiya.customerservice.domain.entities.ContactMedium;
 import com.etiya.customerservice.service.requests.contactMedium.CreateContactMediumRequest;
 import com.etiya.customerservice.service.responses.contactMedium.CreatedContactMediumResponse;

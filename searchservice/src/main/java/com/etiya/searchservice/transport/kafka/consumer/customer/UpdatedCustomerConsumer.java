@@ -1,6 +1,6 @@
 package com.etiya.searchservice.transport.kafka.consumer.customer;
 
-import com.etiya.common.events.customer.CreateCustomerEvent;
+import com.etiya.common.events.customer.UpdateCustomerEvent;
 import com.etiya.searchservice.domain.CustomerSearch;
 import com.etiya.searchservice.service.customer.CustomerSearchService;
 import org.slf4j.Logger;
@@ -10,19 +10,17 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.function.Consumer;
 
-//@Service
 @Configuration
-public class CreatedCustomerConsumer {
-
+public class UpdatedCustomerConsumer {
     private final CustomerSearchService customerSearchService;
-    private final Logger LOGGER = LoggerFactory.getLogger(CreatedCustomerConsumer.class);
+    private final Logger LOGGER =  LoggerFactory.getLogger(UpdatedCustomerConsumer.class);
 
-    public CreatedCustomerConsumer(CustomerSearchService customerSearchService) {
+    public UpdatedCustomerConsumer(CustomerSearchService customerSearchService) {
         this.customerSearchService = customerSearchService;
     }
 
     @Bean
-    public Consumer<CreateCustomerEvent> customerCreated(){
+    public Consumer<UpdateCustomerEvent> customerUpdated(){
         return event -> {
             CustomerSearch customerSearch = new CustomerSearch(
                     event.id(),
@@ -35,8 +33,9 @@ public class CreatedCustomerConsumer {
                     event.motherName(),
                     event.fatherName(),
                     event.natId());
-            customerSearchService.addCustomer(customerSearch);
-            LOGGER.info(String.format("Consumed Customer => %s",event.id()));
+            customerSearchService.updateCustomer(event.id(), customerSearch);
+            LOGGER.info(String.format("Customer updated event => %s", event.id()));
         };
     }
+
 }

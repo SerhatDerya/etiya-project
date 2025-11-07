@@ -1,17 +1,15 @@
 package com.etiya.customerservice.service.mappings;
 
-import com.etiya.common.events.CreateBillingAccountEvent;
+import com.etiya.common.events.billingAccount.CreateBillingAccountEvent;
 import com.etiya.customerservice.domain.entities.BillingAccount;
 import com.etiya.customerservice.service.requests.billingAccount.CreateBillingAccountRequest;
 import com.etiya.customerservice.service.responses.billingAccount.CreatedBillingAccountResponse;
 import com.etiya.customerservice.service.responses.billingAccount.GetListBillingAccountResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
-import java.util.UUID;
 
 @Mapper
 public interface BillingAccountMapper {

@@ -1,6 +1,6 @@
 package com.etiya.searchservice.transport.kafka.consumer.billingAccount;
 
-import com.etiya.common.events.CreateBillingAccountEvent;
+import com.etiya.common.events.billingAccount.CreateBillingAccountEvent;
 import com.etiya.searchservice.domain.BillingAccountSearch;
 import com.etiya.searchservice.service.customer.CustomerSearchService;
 import org.slf4j.Logger;

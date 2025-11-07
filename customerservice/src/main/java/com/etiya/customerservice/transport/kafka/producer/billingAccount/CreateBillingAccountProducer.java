@@ -1,6 +1,6 @@
 package com.etiya.customerservice.transport.kafka.producer.billingAccount;
 
-import com.etiya.common.events.CreateBillingAccountEvent;
+import com.etiya.common.events.billingAccount.CreateBillingAccountEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.stream.function.StreamBridge;

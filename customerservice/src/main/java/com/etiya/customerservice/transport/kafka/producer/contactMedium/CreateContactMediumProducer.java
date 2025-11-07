@@ -1,8 +1,7 @@
 package com.etiya.customerservice.transport.kafka.producer.contactMedium;
 
 
-import com.etiya.common.events.CreateContactMediumEvent;
-import com.etiya.customerservice.repository.ContactMediumRepository;
+import com.etiya.common.events.contactMedium.CreateContactMediumEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.stream.function.StreamBridge;

@@ -1,6 +1,6 @@
 package com.etiya.customerservice.service.mappings;
 
-import com.etiya.common.events.CreateAddressEvent;
+import com.etiya.common.events.address.CreateAddressEvent;
 import com.etiya.customerservice.domain.entities.Address;
 import com.etiya.customerservice.service.requests.address.CreateAddressRequest;
 import com.etiya.customerservice.service.responses.address.CreatedAddressResponse;

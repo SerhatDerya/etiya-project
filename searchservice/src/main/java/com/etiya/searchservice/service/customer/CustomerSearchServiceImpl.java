@@ -20,10 +20,6 @@ public class CustomerSearchServiceImpl implements CustomerSearchService {
         this.customerSearchRepository = customerSearchRepository;
     }
 
-    @Override
-    public void add(CustomerSearch customerSearch) {
-         customerSearchRepository.save(customerSearch);
-    }
 
     @Override
     public List<CustomerSearch> findAll() {
@@ -33,6 +29,32 @@ public class CustomerSearchServiceImpl implements CustomerSearchService {
     @Override
     public void delete(String id) {
         customerSearchRepository.deleteById(id);
+    }
+
+    @Override
+    public void addCustomer(CustomerSearch customerSearch) {
+        customerSearchRepository.save(customerSearch);
+    }
+
+    @Override
+    public void deleteCustomer(String id) {
+        var deleteCustomer = customerSearchRepository.findById(id).orElseThrow(() -> new RuntimeException("Customer not found"));
+        customerSearchRepository.delete(deleteCustomer);
+    }
+
+    @Override
+    public void updateCustomer(String id, CustomerSearch customerSearch) {
+        var updateCustomer = customerSearchRepository.findById(id).orElseThrow(() -> new RuntimeException("Customer not found"));
+        updateCustomer.setCustomerNumber(customerSearch.getCustomerNumber());
+        updateCustomer.setFirstName(customerSearch.getFirstName());
+        updateCustomer.setMiddleName(customerSearch.getMiddleName());
+        updateCustomer.setLastName(customerSearch.getLastName());
+        updateCustomer.setDateOfBirth(customerSearch.getDateOfBirth());
+        updateCustomer.setGender(customerSearch.getGender());
+        updateCustomer.setMotherName(customerSearch.getMotherName());
+        updateCustomer.setFatherName(customerSearch.getFatherName());
+        updateCustomer.setNatId(customerSearch.getNatId());
+        customerSearchRepository.save(updateCustomer);
     }
 
     @Override

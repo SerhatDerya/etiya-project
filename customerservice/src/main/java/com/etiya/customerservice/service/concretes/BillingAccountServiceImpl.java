@@ -1,6 +1,6 @@
 package com.etiya.customerservice.service.concretes;
 
-import com.etiya.common.events.CreateBillingAccountEvent;
+import com.etiya.common.events.billingAccount.CreateBillingAccountEvent;
 import com.etiya.customerservice.domain.entities.*;
 import com.etiya.customerservice.repository.BillingAccountRepository;
 import com.etiya.customerservice.service.abstracts.BillingAccountService;

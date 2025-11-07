@@ -1,6 +1,6 @@
 package com.etiya.customerservice.service.concretes;
 
-import com.etiya.common.events.CreateAddressEvent;
+import com.etiya.common.events.address.CreateAddressEvent;
 import com.etiya.customerservice.domain.entities.Address;
 import com.etiya.customerservice.repository.AddressRepository;
 import com.etiya.customerservice.service.abstracts.AddressService;

@@ -1,8 +1,4 @@
-package com.etiya.common.events;
-
-import jakarta.validation.constraints.NotNull;
-
-import java.util.UUID;
+package com.etiya.common.events.billingAccount;
 
 public record CreateBillingAccountEvent( String id,
                                          String customerId,

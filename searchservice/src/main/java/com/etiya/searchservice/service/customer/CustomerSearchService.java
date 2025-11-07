@@ -9,7 +9,6 @@ import java.util.List;
 
 public interface CustomerSearchService {
 
-    void add(CustomerSearch customerSearch);
     void delete(String id);
 
     List<CustomerSearch> findAll();
@@ -23,6 +22,9 @@ public interface CustomerSearchService {
             String mobilePhone
     );
 
+    void addCustomer(CustomerSearch customerSearch);
+    void deleteCustomer(String id);
+    void updateCustomer(String id, CustomerSearch customerSearch);
 
     void addContactMedium(String customerId, ContactMediumSearch contactMediums);
     void addAddress(String customerId, AddressSearch addressSearch);

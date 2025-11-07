@@ -1,6 +1,6 @@
 package com.etiya.searchservice.transport.kafka.consumer.contactMedium;
 
-import com.etiya.common.events.CreateContactMediumEvent;
+import com.etiya.common.events.contactMedium.CreateContactMediumEvent;
 import com.etiya.searchservice.domain.ContactMediumSearch;
 import com.etiya.searchservice.service.customer.CustomerSearchService;
 import org.slf4j.Logger;

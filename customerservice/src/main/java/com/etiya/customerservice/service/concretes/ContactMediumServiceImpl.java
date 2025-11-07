@@ -1,6 +1,6 @@
 package com.etiya.customerservice.service.concretes;
 
-import com.etiya.common.events.CreateContactMediumEvent;
+import com.etiya.common.events.contactMedium.CreateContactMediumEvent;
 import com.etiya.customerservice.domain.entities.ContactMedium;
 import com.etiya.customerservice.repository.ContactMediumRepository;
 import com.etiya.customerservice.service.abstracts.ContactMediumService;
