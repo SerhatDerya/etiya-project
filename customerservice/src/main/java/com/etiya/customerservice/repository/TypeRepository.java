@@ -1,11 +1,11 @@
 package com.etiya.customerservice.repository;
 
-import com.etiya.customerservice.domain.entities.ContactMedium;
+import com.etiya.customerservice.domain.entities.Type;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
 @Repository
-public interface ContactMediumRepository extends JpaRepository<ContactMedium, UUID> {
+public interface TypeRepository extends JpaRepository<Type, Integer> {
 }

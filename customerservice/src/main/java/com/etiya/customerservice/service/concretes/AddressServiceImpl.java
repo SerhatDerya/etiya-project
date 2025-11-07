@@ -28,7 +28,7 @@ public class AddressServiceImpl implements AddressService {
         Address address = AddressMapper.INSTANCE.addressFromCreateAddressRequest(request);
         Address result = addressRepository.save(address);
         Address fullAddress = addressRepository.findByIdWithCity(result.getId())
-                .orElseThrow(() -> new RuntimeException("Address bulunamadı"));
+                .orElseThrow(() -> new RuntimeException("Address could not found"));
         CreateAddressEvent event = AddressMapper.INSTANCE.createAddressEventFromAddress(fullAddress);
         createAddressProducer.produceAddressCreated(event);
         CreatedAddressResponse response = AddressMapper.INSTANCE.createdAddressResponseFromAddress(result);

@@ -27,10 +27,12 @@ public class CreatedBillingAccountConsumer {
                     event.id(),
                     event.customerId(),
                     event.addressId(),
+                    event.statusId(),
+                    event.typeId(),
                     event.accountNumber(),
                     event.accountName(),
-                    event.type(),
-                    event.status());
+                    event.typeName(),
+                    event.statusName());
             customerSearchService.addBillingAccount(event.customerId(),  billingAccountSearch);
             LOGGER.info(String.format("Billing Account created event => %s,%s,%s",event.id(),event.customerId(),event.addressId()));
 

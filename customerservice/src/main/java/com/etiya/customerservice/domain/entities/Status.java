@@ -12,23 +12,24 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
-@Table(name = "cities")
-public class City extends BaseEntity {
+@Table(name = "statuses")
+public class Status extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private UUID id;
+    private Integer id;
 
     @Column(name = "name",unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "city",
-            fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)
-    private List<Address> addresses;
+    @OneToMany(mappedBy = "status",
+                fetch = FetchType.LAZY)
+    private List<BillingAccount> billingAccounts;
+
+
 }
+
+
+

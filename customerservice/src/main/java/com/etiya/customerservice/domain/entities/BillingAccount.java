@@ -25,10 +25,6 @@ public class BillingAccount extends BaseEntity {
     private String accountNumber;
     @Column(name = "account_name", nullable = false)
     private String accountName;
-    @Column(name = "type", nullable = false)
-    private String type;
-    @Column(name = "status", nullable = false)
-    private String status;
 
 
     @ManyToOne (fetch = FetchType.LAZY, optional = false)
@@ -38,6 +34,14 @@ public class BillingAccount extends BaseEntity {
     @ManyToOne (fetch = FetchType.LAZY, optional = false)
     @JoinColumn (name = "address_id", nullable = false)
     private  Address address;
+
+    @ManyToOne (fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "type_id",nullable = false)
+    private Type type;
+
+    @ManyToOne (fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "status_id",nullable = false)
+    private Status status;
 
     @PrePersist
     public void generateAccountNumber()

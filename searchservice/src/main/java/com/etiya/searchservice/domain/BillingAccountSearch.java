@@ -21,11 +21,15 @@ public class BillingAccountSearch {
     @Field(type = FieldType.Keyword, index = true, docValues = true)
     private String  addressId;
     @Field(type = FieldType.Keyword, index = true, docValues = true)
+    private String statusId;
+    @Field(type = FieldType.Keyword, index = true, docValues = true)
+    private String typeId;
+    @Field(type = FieldType.Keyword, index = true, docValues = true)
     private String accountNumber;
     @Field(type = FieldType.Keyword, index = true, docValues = true)
     private String accountName;
     @Field(type = FieldType.Keyword, index = true, docValues = true)
-    private String type;
+    private String typeName;
     @Field(type = FieldType.Keyword, index = true, docValues = true)
-    private String status;
+    private String statusName;
 }

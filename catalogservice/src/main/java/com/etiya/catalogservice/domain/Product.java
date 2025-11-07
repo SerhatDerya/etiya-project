@@ -22,6 +22,6 @@ public class Product extends BaseEntity {
     private String id;
     @Column(name = "name")
     private String name;
-    @Column(name = "price")
-    private double price;
+//    @Column(name = "price")
+//    private double price;
 }

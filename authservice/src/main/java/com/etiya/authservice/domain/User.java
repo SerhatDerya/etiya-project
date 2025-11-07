@@ -22,16 +22,16 @@ public class User extends BaseEntity implements UserDetails {
     @Column(name = "id")
     private UUID id;
 
-    @Column(name = "firstName")
+    @Column(name = "firstName",nullable = false)
     private String firstName;
 
-    @Column(name = "lastName")
+    @Column(name = "lastName",nullable = false)
     private String lastName;
 
-    @Column(name = "userName")
+    @Column(name = "userName", unique = true, nullable = false)
     private String username;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)

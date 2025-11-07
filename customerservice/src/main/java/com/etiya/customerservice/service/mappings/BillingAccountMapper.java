@@ -7,9 +7,11 @@ import com.etiya.customerservice.service.responses.billingAccount.CreatedBilling
 import com.etiya.customerservice.service.responses.billingAccount.GetListBillingAccountResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
+import java.util.UUID;
 
 @Mapper
 public interface BillingAccountMapper {
@@ -18,18 +20,34 @@ public interface BillingAccountMapper {
 
     @Mapping(target = "customer.id",source = "customerId")
     @Mapping(target = "address.id",source = "addressId")
+    @Mapping(target = "status.id",source = "statusId")
+    @Mapping(target = "type.id",source = "typeId")
     BillingAccount billingAccountFromCreateBillingAccountRequest(CreateBillingAccountRequest request);
 
     @Mapping(target = "customerId", source = "customer.id")
     @Mapping(target = "addressId", source = "address.id")
+    @Mapping(target = "statusId",source = "status.id")
+    @Mapping(target = "typeId",source = "type.id")
+    @Mapping(target = "statusName",source = "status.name")
+    @Mapping(target = "typeName",source = "type.name")
     CreatedBillingAccountResponse createdBillingAccountResponseFromBillingAccount(BillingAccount billingAccount);
 
     @Mapping(target = "customerId", source = "customer.id")
     @Mapping(target = "addressId", source = "address.id")
+    @Mapping(target = "statusId",source = "status.id")
+    @Mapping(target = "typeId",source = "type.id")
+    @Mapping(target = "statusName",source = "status.name")
+    @Mapping(target = "typeName",source = "type.name")
     GetListBillingAccountResponse getListBillingAccountResponseFromBillingAccount(BillingAccount billingAccounts);
     List<GetListBillingAccountResponse>  getListBillingAccountResponseFromBillingAccount(List<BillingAccount> billingAccounts);
 
     @Mapping(target = "customerId", source = "customer.id")
     @Mapping(target = "addressId", source = "address.id")
+    @Mapping(target = "statusId",source = "status.id")
+    @Mapping(target = "typeId",source = "type.id")
+    @Mapping(target = "typeName",source = "type.name")
+    @Mapping(target = "statusName",source = "status.name")
     CreateBillingAccountEvent createBillingAccountEventFromBillingAccount(BillingAccount billingAccount);
+
+
 }

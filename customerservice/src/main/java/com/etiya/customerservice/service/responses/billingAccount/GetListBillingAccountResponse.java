@@ -16,8 +16,10 @@ public class GetListBillingAccountResponse {
     private UUID id;
     private UUID customerId;
     private UUID  addressId;
+    private Integer statusId;
+    private Integer typeId;
     private String accountNumber;
     private String accountName;
-    private String type;
-    private String status;
+    private String typeName;
+    private String statusName;
 }

@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 public abstract class BaseEntity {
 
-    @Column(name = "createdDate",nullable = false)
+    @Column(name = "createdDate")
     private LocalDateTime createdDate;
 
     @Column(name = "updatedDate")

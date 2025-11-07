@@ -25,10 +25,10 @@ public class CreateBillingAccountRequest {
     private UUID  addressId;
     @NotBlank(message = "Account number cannot be empty")
     private String accountName;
-    @NotBlank(message = "Type cannot be empty")
-    @Type
-    private String type;
-    @NotBlank(message = "Status cannot be empty")
-    @Status
-    private String status;
+    @NotNull(message = "Account Status cannot be empty")
+    private Integer statusId;
+    @NotNull(message = "Account Type cannot be empty")
+    private Integer typeId;
+
+
 }
