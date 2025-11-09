@@ -12,6 +12,7 @@ import com.etiya.customerservice.service.requests.address.UpdateAddressRequest;
 import com.etiya.customerservice.service.responses.address.CreatedAddressResponse;
 import com.etiya.customerservice.service.responses.address.GetListAddressResponse;
 import com.etiya.customerservice.service.responses.address.UpdatedAddressResponse;
+import com.etiya.customerservice.service.rules.customer.CustomerBusinessRules;
 import com.etiya.customerservice.transport.kafka.producer.address.CreateAddressProducer;
 import com.etiya.customerservice.transport.kafka.producer.address.DeleteAddressProducer;
 import com.etiya.customerservice.transport.kafka.producer.address.UpdateAddressProducer;
@@ -27,16 +28,19 @@ public class AddressServiceImpl implements AddressService {
     private final CreateAddressProducer createAddressProducer;
     private final UpdateAddressProducer updateAddressProducer;
     private final DeleteAddressProducer deleteAddressProducer;
+    private final CustomerBusinessRules customerBusinessRules;
 
-    public AddressServiceImpl(AddressRepository addressRepository, CreateAddressProducer createAddressProducer, UpdateAddressProducer updateAddressProducer, DeleteAddressProducer deleteAddressProducer) {
+    public AddressServiceImpl(AddressRepository addressRepository, CreateAddressProducer createAddressProducer, UpdateAddressProducer updateAddressProducer, DeleteAddressProducer deleteAddressProducer, CustomerBusinessRules customerBusinessRules) {
         this.addressRepository = addressRepository;
         this.createAddressProducer = createAddressProducer;
         this.updateAddressProducer = updateAddressProducer;
         this.deleteAddressProducer = deleteAddressProducer;
+        this.customerBusinessRules = customerBusinessRules;
     }
 
     @Override
     public CreatedAddressResponse add(CreateAddressRequest request) {
+        customerBusinessRules.checkIfCustomerNotDeleted(request.getCustomerId());
         Address address = AddressMapper.INSTANCE.addressFromCreateAddressRequest(request);
         Address result = addressRepository.save(address);
         Address fullAddress = addressRepository.findByIdWithCity(result.getId())

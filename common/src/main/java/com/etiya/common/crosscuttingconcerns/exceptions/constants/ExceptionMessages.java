@@ -8,13 +8,18 @@ public class ExceptionMessages {
     public static final String TYPE_BUSINESS = "https://example.com/probs/business";
     public static final String TYPE_VALIDATION = "https://example.com/probs/validation";
     public static final String TYPE_INTERNAL = "https://example.com/probs/internal";
+    public static final String TYPE_EXCEPTION = "https://example.com/probs/exception";
+
+    //Global Rule Exception
+    public static final String GLOBAL_ERROR = "Exception Failed";
 
     //Internal server messages
-
     public static final String INTERNAL_ERROR = "Internal Server Error";
 
     //Validation Messages
     public static final String VALIDATION_ERROR = "Validation Rule Violation";
     public static final String VALIDATION_ERRORS = "Validation Errors";
+
+
 
 }

@@ -12,6 +12,8 @@ import com.etiya.customerservice.service.requests.contactMedium.UpdateContactMed
 import com.etiya.customerservice.service.responses.contactMedium.CreatedContactMediumResponse;
 import com.etiya.customerservice.service.responses.contactMedium.GetListContactMediumResponse;
 import com.etiya.customerservice.service.responses.contactMedium.UpdatedContactMediumResponse;
+import com.etiya.customerservice.service.rules.customer.ContactMediumBusinessRules;
+import com.etiya.customerservice.service.rules.customer.CustomerBusinessRules;
 import com.etiya.customerservice.transport.kafka.producer.contactMedium.CreateContactMediumProducer;
 import com.etiya.customerservice.transport.kafka.producer.contactMedium.DeleteContactMediumProducer;
 import com.etiya.customerservice.transport.kafka.producer.contactMedium.UpdateContactMediumProducer;
@@ -28,16 +30,21 @@ public class ContactMediumServiceImpl implements ContactMediumService {
     private final CreateContactMediumProducer createContactMediumProducer;
     private final UpdateContactMediumProducer updateContactMediumProducer;
     private final DeleteContactMediumProducer deleteContactMediumProducer;
+    private final ContactMediumBusinessRules contactMediumBusinessRules;
+    private final CustomerBusinessRules customerBusinessRules;
 
-    public ContactMediumServiceImpl(ContactMediumRepository contactMediumRepository, CreateContactMediumProducer createContactMediumProducer, UpdateContactMediumProducer updateContactMediumProducer, DeleteContactMediumProducer deleteContactMediumProducer) {
+    public ContactMediumServiceImpl(ContactMediumRepository contactMediumRepository, CreateContactMediumProducer createContactMediumProducer, UpdateContactMediumProducer updateContactMediumProducer, DeleteContactMediumProducer deleteContactMediumProducer, ContactMediumBusinessRules contactMediumBusinessRules, CustomerBusinessRules customerBusinessRules) {
         this.contactMediumRepository = contactMediumRepository;
         this.createContactMediumProducer = createContactMediumProducer;
         this.updateContactMediumProducer = updateContactMediumProducer;
         this.deleteContactMediumProducer = deleteContactMediumProducer;
+        this.contactMediumBusinessRules = contactMediumBusinessRules;
+        this.customerBusinessRules = customerBusinessRules;
     }
 
     @Override
     public CreatedContactMediumResponse add(CreateContactMediumRequest request) {
+        customerBusinessRules.checkIfCustomerNotDeleted(request.getCustomerId());
         ContactMedium contactMedium = ContactMediumMapper.INSTANCE.contactMediumFromCreateContactMediumRequest(request);
         ContactMedium result = contactMediumRepository.save(contactMedium);
         CreateContactMediumEvent event = ContactMediumMapper.INSTANCE.createContactMediumEventFromContactMedium(result);

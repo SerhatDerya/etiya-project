@@ -18,9 +18,16 @@ public abstract class CustomerBusinessRules<T extends Customer> {
         this.customerRepository = customerRepository;
         this.localizationService = localizationService;
     }
-//    public void checkIfCustomerId(UUID id) {
-//        if(!customerRepository.existsById(id) ){
-//            throw new BusinessException(localizationService.getMessage(Messages.CantBeNull));
-//        }
-//    }
+
+
+    public void checkIfCustomerNotDeleted(UUID id) {
+        Customer customer = customerRepository.findById(id).orElseThrow(() ->
+                new BusinessException(localizationService.getMessage(Messages.CustomerCantBeNull)));
+        if (customer.getDeletedDate() != null) {
+            throw new BusinessException(localizationService.getMessage(Messages.CustomerDeleted));
+        }
+    }
+
+
+
 }

@@ -8,6 +8,7 @@ import com.etiya.customerservice.service.mappings.BillingAccountMapper;
 import com.etiya.customerservice.service.requests.billingAccount.CreateBillingAccountRequest;
 import com.etiya.customerservice.service.responses.billingAccount.CreatedBillingAccountResponse;
 import com.etiya.customerservice.service.responses.billingAccount.GetListBillingAccountResponse;
+import com.etiya.customerservice.service.rules.customer.CustomerBusinessRules;
 import com.etiya.customerservice.transport.kafka.producer.billingAccount.CreateBillingAccountProducer;
 import org.springframework.stereotype.Service;
 
@@ -18,14 +19,17 @@ public class BillingAccountServiceImpl implements BillingAccountService {
 
     private final BillingAccountRepository billingAccountRepository;
     private final CreateBillingAccountProducer createBillingAccountProducer;
+    private final CustomerBusinessRules customerBusinessRules;
 
-    public BillingAccountServiceImpl(BillingAccountRepository billingAccountRepository, CreateBillingAccountProducer createBillingAccountProducer) {
+    public BillingAccountServiceImpl(BillingAccountRepository billingAccountRepository, CreateBillingAccountProducer createBillingAccountProducer, CustomerBusinessRules customerBusinessRules) {
         this.billingAccountRepository = billingAccountRepository;
         this.createBillingAccountProducer = createBillingAccountProducer;
+        this.customerBusinessRules = customerBusinessRules;
     }
 
     @Override
     public CreatedBillingAccountResponse add(CreateBillingAccountRequest request) {
+        customerBusinessRules.checkIfCustomerNotDeleted(request.getCustomerId());
         BillingAccount billingAccount = BillingAccountMapper.INSTANCE.billingAccountFromCreateBillingAccountRequest(request);
         BillingAccount result = billingAccountRepository.save(billingAccount);
         BillingAccount fullAccount = billingAccountRepository.findByIdWithAccount(result.getId())

@@ -33,6 +33,26 @@ public class GlobalExceptionHandlers {
         return internalServerProblemDetails;
     }
 
+//    @ExceptionHandler({Exception.class})
+//    @ResponseStatus(HttpStatus.BAD_REQUEST)
+//    public ProblemDetails handleException(Exception exception){
+//        ProblemDetails problemDetails = new ProblemDetails();
+//        problemDetails.setTitle("Exception failed");
+//        problemDetails.setStatus(HttpStatus.BAD_REQUEST.value());
+//        problemDetails.setType(ExceptionMessages.TYPE_EXCEPTION);
+//        problemDetails.setDetail(exception.getMessage());
+//        return problemDetails;
+//    }
+
+    @ExceptionHandler({Exception.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ProblemDetails handleException(Exception exception){
+        GlobalProblemDetails globalProblemDetails = new GlobalProblemDetails();
+        globalProblemDetails.setDetail(exception.getMessage());
+        return globalProblemDetails;
+    }
+
+
 
     @ExceptionHandler({MethodArgumentNotValidException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
