@@ -1,6 +1,6 @@
 package com.etiya.customerservice.repository;
 
-import com.etiya.customerservice.domain.entities.Address;
+
 import com.etiya.customerservice.domain.entities.BillingAccount;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
