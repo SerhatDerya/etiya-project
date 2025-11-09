@@ -19,6 +19,6 @@ public class GetListAddressResponse {
     private String description;
     private Boolean isDefault;
     private UUID customerId;
-    private UUID cityId;
+    private Integer cityId;
     private String cityName;
 }

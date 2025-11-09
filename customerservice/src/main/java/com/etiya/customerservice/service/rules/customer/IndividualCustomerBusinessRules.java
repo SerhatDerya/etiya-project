@@ -7,6 +7,9 @@ import com.etiya.customerservice.repository.IndividualCustomerRepository;
 import com.etiya.customerservice.service.messages.Messages;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+import java.util.UUID;
+
 @Service
 public class IndividualCustomerBusinessRules extends CustomerBusinessRules<IndividualCustomer>{
     private final IndividualCustomerRepository individualCustomerRepository;
@@ -24,5 +27,13 @@ public class IndividualCustomerBusinessRules extends CustomerBusinessRules<Indiv
             throw new BusinessException(localizationService.getMessage(Messages.NationalIdentityExists));
         }
     }
+
+    public void checkIfIndividualCustomerExistsByIdentityNumberExceptCurrent(String natId, UUID id) {
+        IndividualCustomer existCustomer = individualCustomerRepository.findByNatId(natId);
+        if (existCustomer !=null && !existCustomer.getId().equals(id)) {
+            throw new BusinessException(localizationService.getMessage(Messages.NationalIdentityExists));
+        }
+    }
+
 
 }

@@ -76,11 +76,41 @@ public class CustomerSearchServiceImpl implements CustomerSearchService {
     }
 
     @Override
+    public void updateContactMedium(String customerId, ContactMediumSearch contactMediums) {
+        var updateCustomerContactMedium = customerSearchRepository.findById(customerId).orElseThrow(() -> new RuntimeException("Customer not found"));
+        updateCustomerContactMedium.getContactMediums().removeIf(cs -> cs.getId().equals(contactMediums.getId()));
+        updateCustomerContactMedium.getContactMediums().add(contactMediums);
+        customerSearchRepository.save(updateCustomerContactMedium);
+    }
+
+    @Override
+    public void deleteContactMedium(String id, String customerId) {
+        var deleteCustomerContactMedium = customerSearchRepository.findById(customerId).orElseThrow(() -> new RuntimeException("Customer not found"));
+        deleteCustomerContactMedium.getContactMediums().removeIf(cs -> cs.getId().equals(id));
+        customerSearchRepository.save(deleteCustomerContactMedium);
+    }
+
+    @Override
     public void addAddress(String customerId, AddressSearch addressSearch) {
         var addCustomerAddress = customerSearchRepository.findById(customerId).orElseThrow(() -> new RuntimeException("Customer not found"));
         addCustomerAddress.getAddressSearches().removeIf(as -> as.getId().equals(addressSearch.getId()));
         addCustomerAddress.getAddressSearches().add(addressSearch);
         customerSearchRepository.save(addCustomerAddress);
+    }
+
+    @Override
+    public void updateAddress(String customerId, AddressSearch addressSearch) {
+        var updateCustomerAddress = customerSearchRepository.findById(customerId).orElseThrow(() -> new RuntimeException("Customer with address not found"));
+        updateCustomerAddress.getAddressSearches().removeIf(address -> address.getId().equals(addressSearch.getId()));
+        updateCustomerAddress.getAddressSearches().add(addressSearch);
+        customerSearchRepository.save(updateCustomerAddress);
+    }
+
+    @Override
+    public void deleteAddress(String id, String customerId) {
+        var deleteCustomerAddress = customerSearchRepository.findById(customerId).orElseThrow(() -> new RuntimeException("Customer not found"));
+        deleteCustomerAddress.getAddressSearches().removeIf(address -> address.getId().equals(id));
+        customerSearchRepository.save(deleteCustomerAddress);
     }
 
     @Override

@@ -2,12 +2,16 @@ package com.etiya.customerservice.service.mappings;
 
 
 import com.etiya.common.events.contactMedium.CreateContactMediumEvent;
+import com.etiya.common.events.contactMedium.UpdateContactMediumEvent;
 import com.etiya.customerservice.domain.entities.ContactMedium;
 import com.etiya.customerservice.service.requests.contactMedium.CreateContactMediumRequest;
+import com.etiya.customerservice.service.requests.contactMedium.UpdateContactMediumRequest;
 import com.etiya.customerservice.service.responses.contactMedium.CreatedContactMediumResponse;
-import com.etiya.customerservice.service.responses.contactMedium.GetListContactMediumReponse;
+import com.etiya.customerservice.service.responses.contactMedium.GetListContactMediumResponse;
+import com.etiya.customerservice.service.responses.contactMedium.UpdatedContactMediumResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -25,9 +29,18 @@ public interface ContactMediumMapper {
     CreatedContactMediumResponse createdContactMediumResponseFromContactMedium(ContactMedium contactMedium);
 
     @Mapping(target = "customerId", source = "customer.id")
-    GetListContactMediumReponse getListContactMediumResponseFromContactMedium(ContactMedium contactMedium);
-    List<GetListContactMediumReponse>  getListContactMediumResponseFromContactMedium(List<ContactMedium> contactMediums);
+    GetListContactMediumResponse getListContactMediumResponseFromContactMedium(ContactMedium contactMedium);
+    List<GetListContactMediumResponse>  getListContactMediumResponseFromContactMedium(List<ContactMedium> contactMediums);
 
     @Mapping(target = "customerId", source = "customer.id")
     CreateContactMediumEvent createContactMediumEventFromContactMedium(ContactMedium contactMedium);
+
+    @Mapping(target = "customer.id", source = "customerId")
+    void contactMediumFromUpdateContactMediumRequest(UpdateContactMediumRequest request,@MappingTarget ContactMedium contactMedium);
+
+    @Mapping(target = "customerId", source = "customer.id")
+    UpdatedContactMediumResponse  updatedContactMediumResponseFromContactMedium(ContactMedium contactMedium);
+
+    @Mapping(target = "customerId", source = "customer.id")
+    UpdateContactMediumEvent updateContactMediumEventFromContactMedium(ContactMedium contactMedium);
 }

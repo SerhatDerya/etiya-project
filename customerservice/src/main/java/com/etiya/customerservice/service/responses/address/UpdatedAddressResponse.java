@@ -1,5 +1,6 @@
 package com.etiya.customerservice.service.responses.address;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,8 +12,8 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreatedAddressResponse {
 
+public class UpdatedAddressResponse {
     private UUID id;
     private String title;
     private String street;

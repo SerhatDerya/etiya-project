@@ -6,9 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLRestriction;
 
 import java.util.List;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -16,12 +16,13 @@ import java.util.UUID;
 @NoArgsConstructor
 @Entity
 @Table(name = "cities")
+@SQLRestriction("deleted_date IS NULL")
 public class City extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private UUID id;
+    private Integer id;
 
     @Column(name = "name",unique = true)
     private String name;

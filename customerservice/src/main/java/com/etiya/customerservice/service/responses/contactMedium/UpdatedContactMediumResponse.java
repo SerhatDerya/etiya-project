@@ -11,7 +11,7 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetListContactMediumReponse {
+public class UpdatedContactMediumResponse {
 
     private UUID id;
     private String email;

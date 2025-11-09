@@ -26,8 +26,14 @@ public interface CustomerSearchService {
     void deleteCustomer(String id);
     void updateCustomer(String id, CustomerSearch customerSearch);
 
-    void addContactMedium(String customerId, ContactMediumSearch contactMediums);
     void addAddress(String customerId, AddressSearch addressSearch);
+    void updateAddress(String customerId, AddressSearch addressSearch);
+    void deleteAddress(String id,String customerId);
+
+    void addContactMedium(String customerId, ContactMediumSearch contactMediums);
+    void updateContactMedium(String customerId, ContactMediumSearch contactMediums);
+    void deleteContactMedium(String id, String customerId);
+
     void addBillingAccount(String customerId, BillingAccountSearch billingAccountSearch);
 
 

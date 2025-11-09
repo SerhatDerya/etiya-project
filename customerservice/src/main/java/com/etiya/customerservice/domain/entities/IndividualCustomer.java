@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLRestriction;
 
 import java.time.LocalDate;
 
@@ -19,6 +20,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "individual_customers")
 @PrimaryKeyJoinColumn(name = "customer_id")
+@SQLRestriction("deleted_date IS NULL")
 public class IndividualCustomer extends Customer{
 
     @Column(name = "firstName",nullable = false)

@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLRestriction;
 
 
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Entity
 @Table(name = "addresses")
+@SQLRestriction("deleted_date IS NULL")
 public class Address extends BaseEntity {
 
     @Id

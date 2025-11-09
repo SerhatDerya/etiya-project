@@ -14,6 +14,6 @@ import java.util.UUID;
 @NoArgsConstructor
 public class GetListCityResponse {
 
-    private UUID id;
+    private Integer id;
     private String name;
 }

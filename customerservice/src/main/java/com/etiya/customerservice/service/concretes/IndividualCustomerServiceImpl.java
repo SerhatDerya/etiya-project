@@ -65,18 +65,19 @@ public class IndividualCustomerServiceImpl implements IndividualCustomerService 
                 individualCustomer.getId().toString()
         );
         deleteCustomerProducer.produceCustomerDeleted(event);
-        individualCustomerRepository.delete(individualCustomer);
+        individualCustomer.setDeletedDate(LocalDateTime.now());
+        individualCustomerRepository.save(individualCustomer);
     }
 
     @Override
     public UpdatedIndividualCustomerResponse update(UUID id, UpdateIndividualCustomerRequest request) {
-        individualCustomerBusinessRules.checkIfIndividualCustomerExistsByIdentityNumber(request.getNatId());
         IndividualCustomer individualCustomer = individualCustomerRepository.findById(id).orElseThrow(() -> new RuntimeException("Individual Customer with id " + id + " not found"));
+        individualCustomerBusinessRules.checkIfIndividualCustomerExistsByIdentityNumberExceptCurrent(request.getNatId(),id);
         IndividualCustomerMapper.INSTANCE.individualCustomerFromUpdateIndividualCustomerRequest(request, individualCustomer);
-        individualCustomer.setUpdatedDate(LocalDateTime.now());
         IndividualCustomer result = individualCustomerRepository.save(individualCustomer);
         UpdateCustomerEvent event = IndividualCustomerMapper.INSTANCE.updateCustomerEventFromIndividualCustomer(result);
         updateCustomerProducer.produceCustomerUpdated(event);
+        individualCustomer.setUpdatedDate(LocalDateTime.now());
         UpdatedIndividualCustomerResponse response = IndividualCustomerMapper.INSTANCE.updatedIndividualCustomerResponseFromIndividualCustomer(result);
         return response;
     }

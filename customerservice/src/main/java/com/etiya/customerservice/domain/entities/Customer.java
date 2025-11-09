@@ -6,8 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLRestriction;
 
-import java.time.LocalDate;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -18,6 +19,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "customers")
 @Inheritance(strategy = InheritanceType.JOINED)
+@SQLRestriction("deleted_date IS NULL")
 public class Customer extends BaseEntity {
 
     @Id

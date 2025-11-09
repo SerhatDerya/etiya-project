@@ -1,6 +1,5 @@
 package com.etiya.customerservice.service.requests.contactMedium;
 
-
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -16,7 +15,7 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateContactMediumRequest {
+public class UpdateContactMediumRequest {
 
 
     @NotBlank(message = "Email Required")
