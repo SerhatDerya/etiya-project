@@ -47,7 +47,7 @@ public class CustomCustomerSearchRepositoryImpl implements CustomCustomerSearchR
                     .path("contactMediums")
                     .query(nb -> nb.match(t -> t.field("contactMediums.mobilePhone").query(mobilePhone)))));
         }
-        if (StringUtils.hasText(mobilePhone)) {
+        if (StringUtils.hasText(accountNumber)) {
             bool.must(m -> m.nested(n -> n
                     .path("billingAccountSearches")
                     .query(nb -> nb.match(t -> t.field("billingAccountSearches.accountNumber").query(accountNumber)))));

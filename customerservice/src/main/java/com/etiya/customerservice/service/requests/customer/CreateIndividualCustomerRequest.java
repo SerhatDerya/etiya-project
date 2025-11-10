@@ -30,7 +30,7 @@ public class CreateIndividualCustomerRequest {
     @Size(min = 2, max = 20, message = "Last Name should be between 2 and 50 character ")
     private String lastName;
 
-    @NotNull(message = "dateOfBirth is required")
+    @NotNull(message = "dateOfBirth is required required format = dd/MM/yyyy")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     @MinAge(value = 16,message = "Age must be higher or equal than 16")
     private LocalDate dateOfBirth;
