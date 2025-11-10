@@ -16,7 +16,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(indexName = "customer-search",createIndex = true)
+@Document(indexName = "customer-searches",createIndex = true)
 public class CustomerSearch {
 
 

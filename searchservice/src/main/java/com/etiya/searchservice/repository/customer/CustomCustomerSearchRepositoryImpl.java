@@ -17,6 +17,7 @@ import java.util.List;
 
 @Repository
 public class CustomCustomerSearchRepositoryImpl implements CustomCustomerSearchRepository {
+
     private final ElasticsearchOperations elasticsearchOperations;
 
     public CustomCustomerSearchRepositoryImpl(ElasticsearchOperations elasticsearchOperations) {
@@ -24,8 +25,12 @@ public class CustomCustomerSearchRepositoryImpl implements CustomCustomerSearchR
     }
 
     @Override
-    public List<CustomerSearch> searchDynamic(String customerNumber, String accountNumber, String natId, String firstName, String lastName, String mobilePhone) {
-
+    public List<CustomerSearch> searchDynamic(String customerNumber,
+                                              String accountNumber,
+                                              String natId,
+                                              String firstName,
+                                              String lastName,
+                                              String mobilePhone) {
 
         if (!StringUtils.hasText(customerNumber)
                 && !StringUtils.hasText(accountNumber)
@@ -39,34 +44,44 @@ public class CustomCustomerSearchRepositoryImpl implements CustomCustomerSearchR
         BoolQuery.Builder bool = QueryBuilders.bool();
 
         if (StringUtils.hasText(customerNumber)) {
-            bool.must(m -> m.term(t -> t.field("customerNumber.keyword").value(customerNumber)));
+            bool.must(m -> m.term(t -> t.field("customerNumber").value(customerNumber)));
         }
 
         if (StringUtils.hasText(mobilePhone)) {
             bool.must(m -> m.nested(n -> n
                     .path("contactMediums")
-                    .query(nb -> nb.match(t -> t.field("contactMediums.mobilePhone").query(mobilePhone)))));
+                    .query(nb -> nb.term(t -> t.field("contactMediums.mobilePhone").value(mobilePhone)))
+            ));
         }
+
         if (StringUtils.hasText(accountNumber)) {
             bool.must(m -> m.nested(n -> n
                     .path("billingAccountSearches")
-                    .query(nb -> nb.match(t -> t.field("billingAccountSearches.accountNumber").query(accountNumber)))));
+                    .query(nb -> nb.term(t -> t.field("billingAccountSearches.accountNumber").value(accountNumber)))
+            ));
         }
 
         if (StringUtils.hasText(natId)) {
-            bool.must(m -> m.term(t -> t.field("natId.keyword").value(natId)));
+            bool.must(m -> m.term(t -> t.field("natId").value(natId)));
         }
 
         if (StringUtils.hasText(firstName)) {
-            bool.must(m -> m.queryString(qs -> qs.fields("firstName").query("*" + firstName.toLowerCase() + "*")));
+            bool.must(m -> m.queryString(qs ->
+                    qs.fields("firstName").query("*" + firstName.toLowerCase() + "*")
+            ));
         }
 
         if (StringUtils.hasText(lastName)) {
-            bool.must(m -> m.queryString(qs -> qs.fields("lastName").query("*" + lastName.toLowerCase() + "*")));
+            bool.must(m -> m.queryString(qs ->
+                    qs.fields("lastName").query("*" + lastName.toLowerCase() + "*")
+            ));
         }
 
         Query query = bool.build()._toQuery();
-        NativeQuery nativeQuery = NativeQuery.builder().withQuery(query).withPageable(PageRequest.of(0,1000)).build();
+        NativeQuery nativeQuery = NativeQuery.builder()
+                .withQuery(query)
+                .withPageable(PageRequest.of(0, 1000))
+                .build();
 
         SearchHits<CustomerSearch> hits = elasticsearchOperations.search(nativeQuery, CustomerSearch.class);
         return hits.stream().map(SearchHit::getContent).toList();
