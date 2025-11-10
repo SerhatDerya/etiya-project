@@ -5,8 +5,10 @@ import com.etiya.customerservice.service.responses.billingAccount.CreatedBilling
 import com.etiya.customerservice.service.responses.billingAccount.GetListBillingAccountResponse;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface BillingAccountService {
     CreatedBillingAccountResponse add(CreateBillingAccountRequest request);
     List<GetListBillingAccountResponse> getList();
+    void delete(UUID id);
 }

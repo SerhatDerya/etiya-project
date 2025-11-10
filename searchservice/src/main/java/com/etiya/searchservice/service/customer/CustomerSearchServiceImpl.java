@@ -63,8 +63,8 @@ public class CustomerSearchServiceImpl implements CustomerSearchService {
     }
 
     @Override
-    public List<CustomerSearch> searchDynamic(String id, String accountNumber, String natId, String firstName, String lastName, String mobilePhone) {
-        return customerSearchRepository.searchDynamic(id,accountNumber,natId,firstName,lastName,mobilePhone);
+    public List<CustomerSearch> searchDynamic(String customerNumber, String accountNumber, String natId, String firstName, String lastName, String mobilePhone) {
+        return customerSearchRepository.searchDynamic(customerNumber,accountNumber,natId,firstName,lastName,mobilePhone);
     }
 
     @Override
@@ -120,5 +120,12 @@ public class CustomerSearchServiceImpl implements CustomerSearchService {
         addCustomerBillingAccount.getBillingAccountSearches().add(billingAccountSearch);
         customerSearchRepository.save(addCustomerBillingAccount);
 
+    }
+
+    @Override
+    public void deleteBillingAccount(String id, String customerId) {
+        var deleteCustomerBillingAccount = customerSearchRepository.findById(customerId).orElseThrow(() -> new RuntimeException("Customer not found"));
+        deleteCustomerBillingAccount.getBillingAccountSearches().removeIf(bas -> bas.getId().equals(id));
+        customerSearchRepository.save(deleteCustomerBillingAccount);
     }
 }

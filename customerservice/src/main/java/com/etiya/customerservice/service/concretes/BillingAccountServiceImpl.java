@@ -1,6 +1,7 @@
 package com.etiya.customerservice.service.concretes;
 
 import com.etiya.common.events.billingAccount.CreateBillingAccountEvent;
+import com.etiya.common.events.billingAccount.DeleteBillingAccountEvent;
 import com.etiya.customerservice.domain.entities.*;
 import com.etiya.customerservice.repository.BillingAccountRepository;
 import com.etiya.customerservice.service.abstracts.BillingAccountService;
@@ -10,20 +11,25 @@ import com.etiya.customerservice.service.responses.billingAccount.CreatedBilling
 import com.etiya.customerservice.service.responses.billingAccount.GetListBillingAccountResponse;
 import com.etiya.customerservice.service.rules.customer.CustomerBusinessRules;
 import com.etiya.customerservice.transport.kafka.producer.billingAccount.CreateBillingAccountProducer;
+import com.etiya.customerservice.transport.kafka.producer.billingAccount.DeleteBillingAccountProducer;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class BillingAccountServiceImpl implements BillingAccountService {
 
     private final BillingAccountRepository billingAccountRepository;
     private final CreateBillingAccountProducer createBillingAccountProducer;
+    private final DeleteBillingAccountProducer deleteBillingAccountProducer;
     private final CustomerBusinessRules customerBusinessRules;
 
-    public BillingAccountServiceImpl(BillingAccountRepository billingAccountRepository, CreateBillingAccountProducer createBillingAccountProducer, CustomerBusinessRules customerBusinessRules) {
+    public BillingAccountServiceImpl(BillingAccountRepository billingAccountRepository, CreateBillingAccountProducer createBillingAccountProducer, DeleteBillingAccountProducer deleteBillingAccountProducer, CustomerBusinessRules customerBusinessRules) {
         this.billingAccountRepository = billingAccountRepository;
         this.createBillingAccountProducer = createBillingAccountProducer;
+        this.deleteBillingAccountProducer = deleteBillingAccountProducer;
         this.customerBusinessRules = customerBusinessRules;
     }
 
@@ -80,5 +86,17 @@ public class BillingAccountServiceImpl implements BillingAccountService {
     public List<GetListBillingAccountResponse> getList() {
         List<BillingAccount> billingAccounts = billingAccountRepository.findAll();
         return BillingAccountMapper.INSTANCE.getListBillingAccountResponseFromBillingAccount(billingAccounts);
+    }
+
+    @Override
+    public void delete(UUID id) {
+        BillingAccount billingAccount = billingAccountRepository.findById(id).orElseThrow(() -> new RuntimeException("Billing Account not found"));
+        DeleteBillingAccountEvent event = new DeleteBillingAccountEvent(
+                billingAccount.getId().toString(),
+                billingAccount.getCustomer().getId().toString()
+        );
+        deleteBillingAccountProducer.produceBillingAccountDeleted(event);
+        billingAccount.setDeletedDate(LocalDateTime.now());
+        billingAccountRepository.save(billingAccount);
     }
 }

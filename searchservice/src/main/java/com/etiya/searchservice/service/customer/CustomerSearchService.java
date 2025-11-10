@@ -14,7 +14,7 @@ public interface CustomerSearchService {
     List<CustomerSearch> findAll();
     List<CustomerSearch> searchAllFields(String keyword);
     List<CustomerSearch> searchDynamic(
-            String id,
+            String customerNumber,
             String accountNumber,
             String natId,
             String firstName,
@@ -35,6 +35,7 @@ public interface CustomerSearchService {
     void deleteContactMedium(String id, String customerId);
 
     void addBillingAccount(String customerId, BillingAccountSearch billingAccountSearch);
+    void deleteBillingAccount(String id,String customerId);
 
 
 }

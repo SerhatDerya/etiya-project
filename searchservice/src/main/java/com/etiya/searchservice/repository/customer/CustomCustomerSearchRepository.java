@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface CustomCustomerSearchRepository {
     List<CustomerSearch> searchDynamic(
-            String id,
+            String customerNumber,
             String accountNumber,
             String natId,
             String firstName,
