@@ -25,7 +25,8 @@ public class BaseSecurityService {
             "/v3/api-docs/**",
             "/api/auth/**",
             "http://localhost:4200/**",
-            "/api/customer-search/**"
+            "/api/customer-search/**",
+            "/api/auth/register"
     };
 
     public HttpSecurity configureCoreSecurity(HttpSecurity httpSecurity) throws Exception{

@@ -33,11 +33,13 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public String login(LoginRequest request) {
+        String normalizedUsername = request.getUsername().toLowerCase();
         Authentication authentication = authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(),request.getPassword()));
+                .authenticate(new UsernamePasswordAuthenticationToken(normalizedUsername,request.getPassword()));
         if (!authentication.isAuthenticated())
             throw new RuntimeException("Incorrect username or password");
-        UserDetails user = userService.loadUserByUsername(request.getUsername());
+//        UserDetails user = userService.loadUserByUsername(request.getUsername().toLowerCase());
+        UserDetails user = (UserDetails) authentication.getPrincipal();
         return jwtService
                 .generateToken(user.getUsername(),user.getAuthorities()
                         .stream().map(GrantedAuthority::getAuthority).toList());
