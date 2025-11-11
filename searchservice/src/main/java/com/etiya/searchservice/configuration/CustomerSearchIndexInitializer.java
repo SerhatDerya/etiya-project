@@ -1,5 +1,8 @@
 package com.etiya.searchservice.configuration;
+
 import jakarta.annotation.PostConstruct;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.IndexOperations;
 import org.springframework.data.elasticsearch.core.document.Document;
@@ -8,9 +11,13 @@ import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 @Component
 public class CustomerSearchIndexInitializer {
+
+    private static final Logger log = LoggerFactory.getLogger(CustomerSearchIndexInitializer.class);
+    private static final String INDEX_NAME = "customer-searches";
 
     private final ElasticsearchOperations elasticsearchOperations;
 
@@ -20,13 +27,17 @@ public class CustomerSearchIndexInitializer {
 
     @PostConstruct
     public void createCustomerSearchIndex() {
-        IndexCoordinates index = IndexCoordinates.of("customer-searches");
+        IndexCoordinates index = IndexCoordinates.of(INDEX_NAME);
         IndexOperations indexOps = elasticsearchOperations.indexOps(index);
 
-//        // Mevcut index varsa sil
-//        if (indexOps.exists()) {
-//            indexOps.delete();
-//        }
+        // Eğer aynı isimde index varsa, yeniden oluşturma
+        if (indexOps.exists()) {
+            log.info("✅ Elasticsearch index '{}' zaten mevcut, yeniden oluşturulmayacak.", INDEX_NAME);
+            return;
+        }
+
+        // Eğer başka gereksiz index'ler varsa, onları kaldır (opsiyonel)
+        cleanupOtherIndices(INDEX_NAME);
 
         // ---- contactMediums mapping ----
         Map<String, Object> contactMediumProps = new HashMap<>();
@@ -90,14 +101,29 @@ public class CustomerSearchIndexInitializer {
         settings.put("number_of_replicas", 0);
 
         // ---- index oluştur ----
-        // Önce settings ve mappings'i Document'a dönüştür
         Document settingsDocument = Document.from(settings);
         Document mappingsDocument = Document.from(mappings);
 
-        // Create index with settings
         indexOps.create(settingsDocument);
-
-        // Put mapping
         indexOps.putMapping(mappingsDocument);
+
+        log.info("✅ Elasticsearch index '{}' başarıyla oluşturuldu.", INDEX_NAME);
+    }
+
+    /**
+     * Eğer başka index’ler varsa, kaldırmak için opsiyonel bir temizlik metodu.
+     */
+    private void cleanupOtherIndices(String keepIndexName) {
+        try {
+            Set<String> allIndices = elasticsearchOperations.indexOps(IndexCoordinates.of("_all")).getAliases().keySet();
+            for (String idx : allIndices) {
+                if (!idx.equals(keepIndexName)) {
+                    log.info("🧹 '{}' index’i kaldırılıyor...", idx);
+                    elasticsearchOperations.indexOps(IndexCoordinates.of(idx)).delete();
+                }
+            }
+        } catch (Exception e) {
+            log.warn("⚠️ Diğer index’leri temizlerken hata oluştu: {}", e.getMessage());
+        }
     }
 }

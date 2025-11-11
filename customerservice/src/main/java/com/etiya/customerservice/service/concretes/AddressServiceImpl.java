@@ -4,7 +4,9 @@ import com.etiya.common.events.address.CreateAddressEvent;
 import com.etiya.common.events.address.DeleteAddressEvent;
 import com.etiya.common.events.address.UpdateAddressEvent;
 import com.etiya.customerservice.domain.entities.Address;
+import com.etiya.customerservice.domain.entities.City;
 import com.etiya.customerservice.repository.AddressRepository;
+import com.etiya.customerservice.repository.CityRepository;
 import com.etiya.customerservice.service.abstracts.AddressService;
 import com.etiya.customerservice.service.mappings.AddressMapper;
 import com.etiya.customerservice.service.requests.address.CreateAddressRequest;
@@ -25,13 +27,15 @@ import java.util.UUID;
 @Service
 public class AddressServiceImpl implements AddressService {
     private final AddressRepository addressRepository;
+    private final CityRepository cityRepository;
     private final CreateAddressProducer createAddressProducer;
     private final UpdateAddressProducer updateAddressProducer;
     private final DeleteAddressProducer deleteAddressProducer;
     private final CustomerBusinessRules customerBusinessRules;
 
-    public AddressServiceImpl(AddressRepository addressRepository, CreateAddressProducer createAddressProducer, UpdateAddressProducer updateAddressProducer, DeleteAddressProducer deleteAddressProducer, CustomerBusinessRules customerBusinessRules) {
+    public AddressServiceImpl(AddressRepository addressRepository, CityRepository cityRepository, CreateAddressProducer createAddressProducer, UpdateAddressProducer updateAddressProducer, DeleteAddressProducer deleteAddressProducer, CustomerBusinessRules customerBusinessRules) {
         this.addressRepository = addressRepository;
+        this.cityRepository = cityRepository;
         this.createAddressProducer = createAddressProducer;
         this.updateAddressProducer = updateAddressProducer;
         this.deleteAddressProducer = deleteAddressProducer;
@@ -61,6 +65,9 @@ public class AddressServiceImpl implements AddressService {
     public UpdatedAddressResponse update(UUID id, UpdateAddressRequest request) {
         Address address = addressRepository.findById(id).orElseThrow(() -> new RuntimeException("Address could not found"));
         AddressMapper.INSTANCE.addressFromUpdateAddressRequest(request, address);
+        City city = cityRepository.findById(request.getCityId())
+                .orElseThrow(() -> new RuntimeException("City could not be found"));
+        address.setCity(city);
         Address result = addressRepository.save(address);
         Address fullAddress = addressRepository.findByIdWithCity(result.getId()).orElseThrow(() -> new RuntimeException("City could not found with this address"));
         UpdateAddressEvent event = AddressMapper.INSTANCE.updateAddressEventFromAddress(fullAddress);

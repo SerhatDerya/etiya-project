@@ -41,7 +41,8 @@ public interface AddressMapper {
     CreateAddressEvent createAddressEventFromAddress(Address address);
 
 
-    @Mapping(target = "city.id",source = "cityId")
+//    @Mapping(target = "city.id",source = "cityId")
+    @Mapping(target = "city", ignore = true)
     @Mapping(target = "customer.id",source = "customerId")
     void addressFromUpdateAddressRequest(UpdateAddressRequest request, @MappingTarget Address address);
 
