@@ -4,6 +4,7 @@ import com.etiya.common.events.billingAccount.CreateBillingAccountEvent;
 import com.etiya.common.events.billingAccount.DeleteBillingAccountEvent;
 import com.etiya.common.events.billingAccount.UpdateBillingAccountEvent;
 import com.etiya.customerservice.domain.entities.*;
+import com.etiya.customerservice.repository.AddressRepository;
 import com.etiya.customerservice.repository.BillingAccountRepository;
 import com.etiya.customerservice.service.abstracts.BillingAccountService;
 import com.etiya.customerservice.service.mappings.BillingAccountMapper;
@@ -27,14 +28,16 @@ import java.util.UUID;
 public class BillingAccountServiceImpl implements BillingAccountService {
 
     private final BillingAccountRepository billingAccountRepository;
+    private final AddressRepository addressRepository;
     private final CreateBillingAccountProducer createBillingAccountProducer;
     private final DeleteBillingAccountProducer deleteBillingAccountProducer;
     private final CustomerBusinessRules customerBusinessRules;
     private final BillingAccountBusinessRules billingAccountBusinessRules;
     private final UpdateBillingAccountProducer updateBillingAccountProducer;
 
-    public BillingAccountServiceImpl(BillingAccountRepository billingAccountRepository, CreateBillingAccountProducer createBillingAccountProducer, DeleteBillingAccountProducer deleteBillingAccountProducer, CustomerBusinessRules customerBusinessRules, BillingAccountBusinessRules billingAccountBusinessRules, UpdateBillingAccountProducer updateBillingAccountProducer) {
+    public BillingAccountServiceImpl(BillingAccountRepository billingAccountRepository, AddressRepository addressRepository, CreateBillingAccountProducer createBillingAccountProducer, DeleteBillingAccountProducer deleteBillingAccountProducer, CustomerBusinessRules customerBusinessRules, BillingAccountBusinessRules billingAccountBusinessRules, UpdateBillingAccountProducer updateBillingAccountProducer) {
         this.billingAccountRepository = billingAccountRepository;
+        this.addressRepository = addressRepository;
         this.createBillingAccountProducer = createBillingAccountProducer;
         this.deleteBillingAccountProducer = deleteBillingAccountProducer;
         this.customerBusinessRules = customerBusinessRules;
@@ -103,6 +106,9 @@ public class BillingAccountServiceImpl implements BillingAccountService {
     public UpdatedBillingAccountResponse update(UUID id, UpdateBillingAccountRequest request) {
         BillingAccount billingAccount = billingAccountRepository.findById(id).orElseThrow(() -> new RuntimeException("Billing Account not found"));
         BillingAccountMapper.INSTANCE.billingAccountFromUpdateBillingAccountRequest(request, billingAccount);
+        Address address = addressRepository.findById(request.getAddressId())
+                .orElseThrow(() -> new RuntimeException("Address not found"));
+        billingAccount.setAddress(address);
         BillingAccount result = billingAccountRepository.save(billingAccount);
         BillingAccount fullAccount = billingAccountRepository.findByIdWithAccount(result.getId())
                 .orElseThrow(() -> new RuntimeException("Status or Type missing"));

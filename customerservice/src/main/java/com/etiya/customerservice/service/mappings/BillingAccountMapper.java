@@ -50,7 +50,8 @@ public interface BillingAccountMapper {
     CreateBillingAccountEvent createBillingAccountEventFromBillingAccount(BillingAccount billingAccount);
 
     @Mapping(target = "customer.id",source = "customerId")
-    @Mapping(target = "address.id",source = "addressId")
+//    @Mapping(target = "address.id",source = "addressId")
+    @Mapping(target = "address", ignore = true)
     void billingAccountFromUpdateBillingAccountRequest(UpdateBillingAccountRequest request, @MappingTarget BillingAccount billingAccount);
 
     @Mapping(target = "customerId", source = "customer.id")
