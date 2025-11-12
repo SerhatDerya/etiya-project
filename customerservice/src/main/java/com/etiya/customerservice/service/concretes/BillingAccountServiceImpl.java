@@ -2,16 +2,21 @@ package com.etiya.customerservice.service.concretes;
 
 import com.etiya.common.events.billingAccount.CreateBillingAccountEvent;
 import com.etiya.common.events.billingAccount.DeleteBillingAccountEvent;
+import com.etiya.common.events.billingAccount.UpdateBillingAccountEvent;
 import com.etiya.customerservice.domain.entities.*;
 import com.etiya.customerservice.repository.BillingAccountRepository;
 import com.etiya.customerservice.service.abstracts.BillingAccountService;
 import com.etiya.customerservice.service.mappings.BillingAccountMapper;
 import com.etiya.customerservice.service.requests.billingAccount.CreateBillingAccountRequest;
+import com.etiya.customerservice.service.requests.billingAccount.UpdateBillingAccountRequest;
 import com.etiya.customerservice.service.responses.billingAccount.CreatedBillingAccountResponse;
 import com.etiya.customerservice.service.responses.billingAccount.GetListBillingAccountResponse;
+import com.etiya.customerservice.service.responses.billingAccount.UpdatedBillingAccountResponse;
+import com.etiya.customerservice.service.rules.customer.BillingAccountBusinessRules;
 import com.etiya.customerservice.service.rules.customer.CustomerBusinessRules;
 import com.etiya.customerservice.transport.kafka.producer.billingAccount.CreateBillingAccountProducer;
 import com.etiya.customerservice.transport.kafka.producer.billingAccount.DeleteBillingAccountProducer;
+import com.etiya.customerservice.transport.kafka.producer.billingAccount.UpdateBillingAccountProducer;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -25,18 +30,24 @@ public class BillingAccountServiceImpl implements BillingAccountService {
     private final CreateBillingAccountProducer createBillingAccountProducer;
     private final DeleteBillingAccountProducer deleteBillingAccountProducer;
     private final CustomerBusinessRules customerBusinessRules;
+    private final BillingAccountBusinessRules billingAccountBusinessRules;
+    private final UpdateBillingAccountProducer updateBillingAccountProducer;
 
-    public BillingAccountServiceImpl(BillingAccountRepository billingAccountRepository, CreateBillingAccountProducer createBillingAccountProducer, DeleteBillingAccountProducer deleteBillingAccountProducer, CustomerBusinessRules customerBusinessRules) {
+    public BillingAccountServiceImpl(BillingAccountRepository billingAccountRepository, CreateBillingAccountProducer createBillingAccountProducer, DeleteBillingAccountProducer deleteBillingAccountProducer, CustomerBusinessRules customerBusinessRules, BillingAccountBusinessRules billingAccountBusinessRules, UpdateBillingAccountProducer updateBillingAccountProducer) {
         this.billingAccountRepository = billingAccountRepository;
         this.createBillingAccountProducer = createBillingAccountProducer;
         this.deleteBillingAccountProducer = deleteBillingAccountProducer;
         this.customerBusinessRules = customerBusinessRules;
+        this.billingAccountBusinessRules = billingAccountBusinessRules;
+        this.updateBillingAccountProducer = updateBillingAccountProducer;
     }
 
     @Override
     public CreatedBillingAccountResponse add(CreateBillingAccountRequest request) {
         customerBusinessRules.checkIfCustomerNotDeleted(request.getCustomerId());
         BillingAccount billingAccount = BillingAccountMapper.INSTANCE.billingAccountFromCreateBillingAccountRequest(request);
+        billingAccountBusinessRules.setDefaultStatusIfNull(billingAccount);
+        billingAccountBusinessRules.setDefaultTypeIfNull(billingAccount);
         BillingAccount result = billingAccountRepository.save(billingAccount);
         BillingAccount fullAccount = billingAccountRepository.findByIdWithAccount(result.getId())
                 .orElseThrow(() -> new RuntimeException("Status or Type missing"));
@@ -89,14 +100,30 @@ public class BillingAccountServiceImpl implements BillingAccountService {
     }
 
     @Override
+    public UpdatedBillingAccountResponse update(UUID id, UpdateBillingAccountRequest request) {
+        BillingAccount billingAccount = billingAccountRepository.findById(id).orElseThrow(() -> new RuntimeException("Billing Account not found"));
+        BillingAccountMapper.INSTANCE.billingAccountFromUpdateBillingAccountRequest(request, billingAccount);
+        BillingAccount result = billingAccountRepository.save(billingAccount);
+        BillingAccount fullAccount = billingAccountRepository.findByIdWithAccount(result.getId())
+                .orElseThrow(() -> new RuntimeException("Status or Type missing"));
+        billingAccount.setUpdatedDate(LocalDateTime.now());
+        UpdateBillingAccountEvent   event = BillingAccountMapper.INSTANCE.updateBillingAccountEventFromBillingAccount(fullAccount);
+        updateBillingAccountProducer.produceBillingAccountUpdated(event);
+        UpdatedBillingAccountResponse response = BillingAccountMapper.INSTANCE.updatedBillingAccountResponseFromBillingAccount(result);
+        return  response;
+
+    }
+
+    @Override
     public void delete(UUID id) {
         BillingAccount billingAccount = billingAccountRepository.findById(id).orElseThrow(() -> new RuntimeException("Billing Account not found"));
+        billingAccountBusinessRules.setClosedStatus(billingAccount);
+        billingAccount.setDeletedDate(LocalDateTime.now());
         DeleteBillingAccountEvent event = new DeleteBillingAccountEvent(
                 billingAccount.getId().toString(),
                 billingAccount.getCustomer().getId().toString()
         );
         deleteBillingAccountProducer.produceBillingAccountDeleted(event);
-        billingAccount.setDeletedDate(LocalDateTime.now());
         billingAccountRepository.save(billingAccount);
     }
 }

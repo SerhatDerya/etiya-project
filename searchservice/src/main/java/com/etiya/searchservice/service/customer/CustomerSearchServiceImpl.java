@@ -128,4 +128,12 @@ public class CustomerSearchServiceImpl implements CustomerSearchService {
         deleteCustomerBillingAccount.getBillingAccountSearches().removeIf(bas -> bas.getId().equals(id));
         customerSearchRepository.save(deleteCustomerBillingAccount);
     }
+
+    @Override
+    public void updateBillingAccount(String customerId, BillingAccountSearch billingAccountSearch) {
+        var updateCustomerBillingAccount = customerSearchRepository.findById(customerId).orElseThrow(() -> new RuntimeException("Customer with Billing Account not found"));
+        updateCustomerBillingAccount.getBillingAccountSearches().removeIf(bas -> bas.getId().equals(billingAccountSearch.getId()));
+        updateCustomerBillingAccount.getBillingAccountSearches().add(billingAccountSearch);
+        customerSearchRepository.save(updateCustomerBillingAccount);
+    }
 }

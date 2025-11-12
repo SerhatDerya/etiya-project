@@ -17,6 +17,6 @@ public class DeleteBillingAccountProducer {
 
     public void produceBillingAccountDeleted(DeleteBillingAccountEvent event){
         streamBridge.send("billingAccountDeleted-out-0",event);
-        LOGGER.info(String.format("Billing Account deleted event => %s,%s,%s",event.id(),event.customerId()));
+        LOGGER.info(String.format("Billing Account deleted event => %s,%s",event.id(),event.customerId()));
     }
 }

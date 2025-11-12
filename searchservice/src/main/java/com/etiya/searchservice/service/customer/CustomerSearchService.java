@@ -36,6 +36,7 @@ public interface CustomerSearchService {
 
     void addBillingAccount(String customerId, BillingAccountSearch billingAccountSearch);
     void deleteBillingAccount(String id,String customerId);
+    void updateBillingAccount(String customerId, BillingAccountSearch billingAccountSearch);
 
 
 }

@@ -22,7 +22,7 @@ public class DeletedBillingAccountConsumer {
     public Consumer<DeleteBillingAccountEvent> billingAccountDeleted(){
         return event -> {
             customerSearchService.deleteBillingAccount(event.id(), event.customerId());
-            LOGGER.info(String.format("Billing Account deleted event => %s,%s,%s",event.id(),event.customerId()));
+            LOGGER.info(String.format("Billing Account deleted event => %s,%s",event.id(),event.customerId()));
         };
     }
 }
