@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/billing-accounts/")
@@ -29,5 +30,11 @@ public class BillingAccountController {
     @ResponseStatus(HttpStatus.OK)
     public List<GetListBillingAccountResponse> getList(){
         return billingAccountService.getList();
+    }
+
+    @DeleteMapping("{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void delete(@PathVariable UUID id) {
+        billingAccountService.delete(id);
     }
 }
