@@ -20,8 +20,5 @@ public class UpdateBillingAccountRequest {
     private UUID  addressId;
     @NotBlank(message = "Account number cannot be empty")
     private String accountName;
-    @NotNull(message = "Account Status cannot be empty")
-    private Integer statusId;
-    @NotNull(message = "Account Type cannot be empty")
-    private Integer typeId;
+
 }
