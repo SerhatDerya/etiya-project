@@ -1,0 +1,12 @@
+package com.etiya.catalogservice.service.abstracts;
+
+import com.etiya.catalogservice.service.requests.CreateProductSpecificationCharacteristicRequest;
+import com.etiya.catalogservice.service.responses.productSpecificationCharacteristic.CreatedProductSpecificationCharacteristicResponse;
+import com.etiya.catalogservice.service.responses.productSpecificationCharacteristic.GetListProductSpecificationCharacteristicResponse;
+
+import java.util.List;
+
+public interface ProductSpecificationCharacteristicService {
+    CreatedProductSpecificationCharacteristicResponse add(CreateProductSpecificationCharacteristicRequest request);
+    List<GetListProductSpecificationCharacteristicResponse> getList();
+}
