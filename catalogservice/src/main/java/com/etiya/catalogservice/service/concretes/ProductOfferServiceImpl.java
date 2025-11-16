@@ -10,6 +10,7 @@ import com.etiya.catalogservice.service.responses.productOffer.GetListProductOff
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ProductOfferServiceImpl implements ProductOfferService {
@@ -31,5 +32,10 @@ public class ProductOfferServiceImpl implements ProductOfferService {
     public List<GetListProductOfferResponse> getList() {
         List<ProductOffer> productOffers = productOfferRepository.findAll();
         return ProductOfferMapper.INSTANCE.getListProductOfferResponseFromProductOffer(productOffers);
+    }
+
+    @Override
+    public List<GetListProductOfferResponse> getListByCatalogId(UUID id) {
+        return ProductOfferMapper.INSTANCE.getListProductOfferResponseFromProductOffer(productOfferRepository.findByCatalogId(id));
     }
 }
