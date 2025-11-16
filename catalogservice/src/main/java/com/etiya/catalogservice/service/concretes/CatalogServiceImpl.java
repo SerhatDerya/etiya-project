@@ -7,6 +7,7 @@ import com.etiya.catalogservice.service.mappings.CatalogMapper;
 import com.etiya.catalogservice.service.requests.CreateCatalogRequest;
 import com.etiya.catalogservice.service.responses.catalog.CreatedCatalogResponse;
 import com.etiya.catalogservice.service.responses.catalog.GetListCatalogResponse;
+import com.etiya.common.crosscuttingconcerns.exceptions.types.BusinessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +23,17 @@ public class CatalogServiceImpl implements CatalogService {
     @Override
     public CreatedCatalogResponse add(CreateCatalogRequest request) {
         Catalog catalog = CatalogMapper.INSTANCE.catalogFromCreateCatalogRequest(request);
+
+        // Parent ID varsa ve NULL değilse, veritabanından çek
+        if (request.getParentId() != null) {
+            Catalog parent = catalogRepository.findById(request.getParentId())
+                    .orElseThrow(() -> new BusinessException("Parent catalog not found with id: " + request.getParentId()));
+            catalog.setParent(parent);
+        } else {
+            // Parent yoksa (root catalog), null olarak bırak
+            catalog.setParent(null);
+        }
+
         Catalog result = catalogRepository.save(catalog);
         CreatedCatalogResponse response = CatalogMapper.INSTANCE.createdCatalogResponseFromCatalog(result);
         return response;
