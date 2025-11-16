@@ -32,7 +32,10 @@ public class ProductOfferController {
         return productOfferService.getList();
     }
 
-    @GetMapping("{id}")
+    @GetMapping("getByCatalogId/{id}")
     @ResponseStatus(HttpStatus.OK)
     public List<GetListProductOfferResponse> getProductOffersByCatalogId(@PathVariable UUID id){return productOfferService.getListByCatalogId(id);}
+
+    @GetMapping("getByCampaignId/{id}")
+    public List<GetListProductOfferResponse> getProductOffersByCampaignId(@PathVariable UUID id){return productOfferService.getListByCampaignId(id);}
 }

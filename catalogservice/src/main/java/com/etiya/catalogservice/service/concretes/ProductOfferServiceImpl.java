@@ -38,4 +38,9 @@ public class ProductOfferServiceImpl implements ProductOfferService {
     public List<GetListProductOfferResponse> getListByCatalogId(UUID id) {
         return ProductOfferMapper.INSTANCE.getListProductOfferResponseFromProductOffer(productOfferRepository.findByCatalogId(id));
     }
+
+    @Override
+    public List<GetListProductOfferResponse> getListByCampaignId(UUID id) {
+        return ProductOfferMapper.INSTANCE.getListProductOfferResponseFromProductOffer(productOfferRepository.findByCampaignId(id));
+    }
 }

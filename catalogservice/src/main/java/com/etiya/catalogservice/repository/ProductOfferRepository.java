@@ -19,4 +19,14 @@ public interface ProductOfferRepository extends JpaRepository<ProductOffer, UUID
             WHERE c.id = :id
             """)
     List<ProductOffer> findByCatalogId(UUID id);
+
+    @Query("""
+            SELECT po
+            FROM ProductOffer po
+            JOIN po.product p
+            JOIN p.campaignProducts cp
+            JOIN cp.campaign c
+            WHERE c.id = :id
+            """)
+    List<ProductOffer> findByCampaignId(UUID id);
 }

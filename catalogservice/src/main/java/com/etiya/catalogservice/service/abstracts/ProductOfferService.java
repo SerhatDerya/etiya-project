@@ -12,4 +12,5 @@ public interface ProductOfferService {
     CreatedProductOfferResponse add(CreateProductOfferRequest request);
     List<GetListProductOfferResponse> getList();
     List<GetListProductOfferResponse> getListByCatalogId(UUID id);
+    List<GetListProductOfferResponse> getListByCampaignId(UUID id);
 }
