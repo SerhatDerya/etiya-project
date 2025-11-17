@@ -5,8 +5,10 @@ import com.etiya.catalogservice.service.responses.product.CreatedProductResponse
 import com.etiya.catalogservice.service.responses.product.GetListProductResponse;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface ProductService {
     CreatedProductResponse add(CreateProductRequest request);
     List<GetListProductResponse> getList();
+    CreatedProductResponse getById(UUID id);
 }

@@ -1,4 +1,4 @@
-package com.etiya.searchservice.service.customer;
+package com.etiya.searchservice.service.abstracts;
 
 import com.etiya.searchservice.domain.AddressSearch;
 import com.etiya.searchservice.domain.BillingAccountSearch;

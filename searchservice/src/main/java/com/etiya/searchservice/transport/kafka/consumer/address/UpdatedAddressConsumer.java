@@ -1,9 +1,8 @@
 package com.etiya.searchservice.transport.kafka.consumer.address;
 
-import com.etiya.common.events.address.CreateAddressEvent;
 import com.etiya.common.events.address.UpdateAddressEvent;
 import com.etiya.searchservice.domain.AddressSearch;
-import com.etiya.searchservice.service.customer.CustomerSearchService;
+import com.etiya.searchservice.service.abstracts.CustomerSearchService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;

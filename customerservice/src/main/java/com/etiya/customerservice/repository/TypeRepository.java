@@ -11,4 +11,5 @@ import java.util.Optional;
 @Repository
 public interface TypeRepository extends JpaRepository<Type, Integer> {
     Optional<Type> findByName(String name);
+    boolean existsByNameIgnoreCase(String name);
 }

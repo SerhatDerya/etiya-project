@@ -1,7 +1,8 @@
-package com.etiya.customerservice.service.rules.customer;
+package com.etiya.customerservice.service.rules;
 
 import com.etiya.common.crosscuttingconcerns.exceptions.types.BusinessException;
 import com.etiya.common.localization.LocalizationService;
+import com.etiya.customerservice.domain.entities.Address;
 import com.etiya.customerservice.domain.entities.BillingAccount;
 import com.etiya.customerservice.domain.entities.Status;
 import com.etiya.customerservice.domain.entities.Type;
@@ -10,6 +11,8 @@ import com.etiya.customerservice.repository.StatusRepository;
 import com.etiya.customerservice.repository.TypeRepository;
 import com.etiya.customerservice.service.messages.Messages;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 public class BillingAccountBusinessRules {
@@ -51,5 +54,16 @@ public class BillingAccountBusinessRules {
                         localizationService.getMessage(Messages.ClosedStatusNotFound)
                 ));
         billingAccount.setStatus(closedStatus);
+    }
+
+    public BillingAccount getBillingAccountWithStatusAndTypeIfExists(UUID id) {
+        return billingAccountRepository.findByIdWithAccount(id)
+                .orElseThrow(() ->
+                        new BusinessException(localizationService.getMessage(Messages.BillingAccountWithStatusAndTypeNotExists)));
+    }
+
+    public BillingAccount getBillingAccountIfExists(UUID id) {
+        return billingAccountRepository.findById(id)
+                .orElseThrow(() -> new BusinessException(localizationService.getMessage(Messages.BillingAccountNotFound)));
     }
 }

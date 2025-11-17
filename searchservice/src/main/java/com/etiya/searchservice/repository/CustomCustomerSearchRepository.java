@@ -1,4 +1,4 @@
-package com.etiya.searchservice.repository.customer;
+package com.etiya.searchservice.repository;
 
 import com.etiya.searchservice.domain.CustomerSearch;
 

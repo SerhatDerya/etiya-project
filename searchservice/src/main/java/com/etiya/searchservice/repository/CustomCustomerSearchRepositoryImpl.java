@@ -1,4 +1,4 @@
-package com.etiya.searchservice.repository.customer;
+package com.etiya.searchservice.repository;
 
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;

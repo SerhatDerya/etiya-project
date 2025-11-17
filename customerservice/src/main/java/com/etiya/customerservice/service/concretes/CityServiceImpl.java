@@ -7,6 +7,7 @@ import com.etiya.customerservice.service.mappings.CityMapper;
 import com.etiya.customerservice.service.requests.city.CreateCityRequest;
 import com.etiya.customerservice.service.responses.city.CreatedCityResponse;
 import com.etiya.customerservice.service.responses.city.GetListCityResponse;
+import com.etiya.customerservice.service.rules.CityBusinessRules;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,13 +16,16 @@ import java.util.List;
 public class CityServiceImpl implements CityService {
 
     private final CityRepository cityRepository;
+    private final CityBusinessRules  cityBusinessRules;
 
-    public CityServiceImpl(CityRepository cityRepository) {
+    public CityServiceImpl(CityRepository cityRepository, CityBusinessRules cityBusinessRules) {
         this.cityRepository = cityRepository;
+        this.cityBusinessRules = cityBusinessRules;
     }
 
     @Override
     public CreatedCityResponse add(CreateCityRequest request) {
+        cityBusinessRules.checkCityExistsName(request.getName());
         City city = CityMapper.INSTANCE.cityFromCreateCityRequest(request);
         City result = cityRepository.save(city);
         CreatedCityResponse response = CityMapper.INSTANCE.createdCityResponseFromCity(result);

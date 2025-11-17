@@ -1,4 +1,4 @@
-package com.etiya.customerservice.service.rules.customer;
+package com.etiya.customerservice.service.rules;
 
 import com.etiya.common.crosscuttingconcerns.exceptions.types.BusinessException;
 import com.etiya.common.localization.LocalizationService;

@@ -37,9 +37,8 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
-
-    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException{
-        return userRepository.findByUsername(userName)
-                .orElseThrow(() -> new AccessDeniedException("Login Failed"));
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRules.loadUserByUsername(username);
     }
 }

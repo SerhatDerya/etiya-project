@@ -1,10 +1,12 @@
-package com.etiya.searchservice.service.customer;
+package com.etiya.searchservice.service.concretes;
 
 import com.etiya.searchservice.domain.AddressSearch;
 import com.etiya.searchservice.domain.BillingAccountSearch;
 import com.etiya.searchservice.domain.ContactMediumSearch;
 import com.etiya.searchservice.domain.CustomerSearch;
-import com.etiya.searchservice.repository.customer.CustomerSearchRepository;
+import com.etiya.searchservice.repository.CustomerSearchRepository;
+import com.etiya.searchservice.service.abstracts.CustomerSearchService;
+import com.etiya.searchservice.service.rules.CustomerSearchBusinessRules;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,9 +17,11 @@ public class CustomerSearchServiceImpl implements CustomerSearchService {
 
 
     private final CustomerSearchRepository customerSearchRepository;
+    private final CustomerSearchBusinessRules customerSearchBusinessRules;
 
-    public CustomerSearchServiceImpl(CustomerSearchRepository customerSearchRepository) {
+    public CustomerSearchServiceImpl(CustomerSearchRepository customerSearchRepository, CustomerSearchBusinessRules customerSearchBusinessRules) {
         this.customerSearchRepository = customerSearchRepository;
+        this.customerSearchBusinessRules = customerSearchBusinessRules;
     }
 
 
@@ -38,13 +42,13 @@ public class CustomerSearchServiceImpl implements CustomerSearchService {
 
     @Override
     public void deleteCustomer(String id) {
-        var deleteCustomer = customerSearchRepository.findById(id).orElseThrow(() -> new RuntimeException("Customer not found"));
+        var deleteCustomer = customerSearchBusinessRules.getCustomerSearchIfExists(id);
         customerSearchRepository.delete(deleteCustomer);
     }
 
     @Override
     public void updateCustomer(String id, CustomerSearch customerSearch) {
-        var updateCustomer = customerSearchRepository.findById(id).orElseThrow(() -> new RuntimeException("Customer not found"));
+        var updateCustomer = customerSearchBusinessRules.getCustomerSearchIfExists(id);
         updateCustomer.setCustomerNumber(customerSearch.getCustomerNumber());
         updateCustomer.setFirstName(customerSearch.getFirstName());
         updateCustomer.setMiddleName(customerSearch.getMiddleName());
@@ -69,7 +73,7 @@ public class CustomerSearchServiceImpl implements CustomerSearchService {
 
     @Override
     public void addContactMedium(String customerId, ContactMediumSearch contactMediums) {
-        var addCustomerContactMedium = customerSearchRepository.findById(customerId).orElseThrow(() -> new RuntimeException("Customer not found"));
+        var addCustomerContactMedium = customerSearchBusinessRules.getCustomerSearchIfExists(customerId);
         addCustomerContactMedium.getContactMediums().removeIf(cs -> cs.getId().equals(contactMediums.getId()));
         addCustomerContactMedium.getContactMediums().add(contactMediums);
         customerSearchRepository.save(addCustomerContactMedium);
@@ -77,7 +81,7 @@ public class CustomerSearchServiceImpl implements CustomerSearchService {
 
     @Override
     public void updateContactMedium(String customerId, ContactMediumSearch contactMediums) {
-        var updateCustomerContactMedium = customerSearchRepository.findById(customerId).orElseThrow(() -> new RuntimeException("Customer not found"));
+        var updateCustomerContactMedium = customerSearchBusinessRules.getCustomerSearchIfExists(customerId);
         updateCustomerContactMedium.getContactMediums().removeIf(cs -> cs.getId().equals(contactMediums.getId()));
         updateCustomerContactMedium.getContactMediums().add(contactMediums);
         customerSearchRepository.save(updateCustomerContactMedium);
@@ -85,14 +89,14 @@ public class CustomerSearchServiceImpl implements CustomerSearchService {
 
     @Override
     public void deleteContactMedium(String id, String customerId) {
-        var deleteCustomerContactMedium = customerSearchRepository.findById(customerId).orElseThrow(() -> new RuntimeException("Customer not found"));
+        var deleteCustomerContactMedium = customerSearchBusinessRules.getCustomerSearchIfExists(customerId);
         deleteCustomerContactMedium.getContactMediums().removeIf(cs -> cs.getId().equals(id));
         customerSearchRepository.save(deleteCustomerContactMedium);
     }
 
     @Override
     public void addAddress(String customerId, AddressSearch addressSearch) {
-        var addCustomerAddress = customerSearchRepository.findById(customerId).orElseThrow(() -> new RuntimeException("Customer not found"));
+        var addCustomerAddress = customerSearchBusinessRules.getCustomerSearchIfExists(customerId);
         addCustomerAddress.getAddressSearches().removeIf(as -> as.getId().equals(addressSearch.getId()));
         addCustomerAddress.getAddressSearches().add(addressSearch);
         customerSearchRepository.save(addCustomerAddress);
@@ -100,7 +104,7 @@ public class CustomerSearchServiceImpl implements CustomerSearchService {
 
     @Override
     public void updateAddress(String customerId, AddressSearch addressSearch) {
-        var updateCustomerAddress = customerSearchRepository.findById(customerId).orElseThrow(() -> new RuntimeException("Customer with address not found"));
+        var updateCustomerAddress = customerSearchBusinessRules.getCustomerSearchIfExists(customerId);
         updateCustomerAddress.getAddressSearches().removeIf(address -> address.getId().equals(addressSearch.getId()));
         updateCustomerAddress.getAddressSearches().add(addressSearch);
         customerSearchRepository.save(updateCustomerAddress);
@@ -108,14 +112,14 @@ public class CustomerSearchServiceImpl implements CustomerSearchService {
 
     @Override
     public void deleteAddress(String id, String customerId) {
-        var deleteCustomerAddress = customerSearchRepository.findById(customerId).orElseThrow(() -> new RuntimeException("Customer not found"));
+        var deleteCustomerAddress = customerSearchBusinessRules.getCustomerSearchIfExists(customerId);
         deleteCustomerAddress.getAddressSearches().removeIf(address -> address.getId().equals(id));
         customerSearchRepository.save(deleteCustomerAddress);
     }
 
     @Override
     public void addBillingAccount(String customerId, BillingAccountSearch billingAccountSearch) {
-        var addCustomerBillingAccount = customerSearchRepository.findById(customerId).orElseThrow(() -> new RuntimeException("Customer  not found"));
+        var addCustomerBillingAccount = customerSearchBusinessRules.getCustomerSearchIfExists(customerId);
         addCustomerBillingAccount.getBillingAccountSearches().removeIf(bas -> bas.getId().equals(billingAccountSearch.getId()));
         addCustomerBillingAccount.getBillingAccountSearches().add(billingAccountSearch);
         customerSearchRepository.save(addCustomerBillingAccount);
@@ -124,14 +128,14 @@ public class CustomerSearchServiceImpl implements CustomerSearchService {
 
     @Override
     public void deleteBillingAccount(String id, String customerId) {
-        var deleteCustomerBillingAccount = customerSearchRepository.findById(customerId).orElseThrow(() -> new RuntimeException("Customer not found"));
+        var deleteCustomerBillingAccount = customerSearchBusinessRules.getCustomerSearchIfExists(customerId);
         deleteCustomerBillingAccount.getBillingAccountSearches().removeIf(bas -> bas.getId().equals(id));
         customerSearchRepository.save(deleteCustomerBillingAccount);
     }
 
     @Override
     public void updateBillingAccount(String customerId, BillingAccountSearch billingAccountSearch) {
-        var updateCustomerBillingAccount = customerSearchRepository.findById(customerId).orElseThrow(() -> new RuntimeException("Customer with Billing Account not found"));
+        var updateCustomerBillingAccount = customerSearchBusinessRules.getCustomerSearchIfExists(customerId);
         updateCustomerBillingAccount.getBillingAccountSearches().removeIf(bas -> bas.getId().equals(billingAccountSearch.getId()));
         updateCustomerBillingAccount.getBillingAccountSearches().add(billingAccountSearch);
         customerSearchRepository.save(updateCustomerBillingAccount);

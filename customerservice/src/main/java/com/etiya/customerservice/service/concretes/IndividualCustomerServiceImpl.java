@@ -7,7 +7,7 @@ import com.etiya.customerservice.domain.entities.IndividualCustomer;
 import com.etiya.customerservice.repository.IndividualCustomerRepository;
 import com.etiya.customerservice.service.requests.customer.UpdateIndividualCustomerRequest;
 import com.etiya.customerservice.service.responses.customer.UpdatedIndividualCustomerResponse;
-import com.etiya.customerservice.service.rules.customer.IndividualCustomerBusinessRules;
+import com.etiya.customerservice.service.rules.IndividualCustomerBusinessRules;
 import com.etiya.customerservice.service.abstracts.IndividualCustomerService;
 import com.etiya.customerservice.service.mappings.IndividualCustomerMapper;
 import com.etiya.customerservice.service.requests.customer.CreateIndividualCustomerRequest;
@@ -60,7 +60,7 @@ public class IndividualCustomerServiceImpl implements IndividualCustomerService 
 
     @Override
     public void delete(UUID id) {
-        IndividualCustomer individualCustomer = individualCustomerRepository.findById(id).orElseThrow(() -> new RuntimeException("Individual Customer with id " + id + " not found"));
+        IndividualCustomer individualCustomer = individualCustomerBusinessRules.getIndividualCustomerIfExists(id);
         DeleteCustomerEvent event = new DeleteCustomerEvent(
                 individualCustomer.getId().toString()
         );
@@ -71,7 +71,7 @@ public class IndividualCustomerServiceImpl implements IndividualCustomerService 
 
     @Override
     public UpdatedIndividualCustomerResponse update(UUID id, UpdateIndividualCustomerRequest request) {
-        IndividualCustomer individualCustomer = individualCustomerRepository.findById(id).orElseThrow(() -> new RuntimeException("Individual Customer with id " + id + " not found"));
+        IndividualCustomer individualCustomer = individualCustomerBusinessRules.getIndividualCustomerIfExists(id);
         individualCustomerBusinessRules.checkIfIndividualCustomerExistsByIdentityNumberExceptCurrent(request.getNatId(),id);
         IndividualCustomerMapper.INSTANCE.individualCustomerFromUpdateIndividualCustomerRequest(request, individualCustomer);
         IndividualCustomer result = individualCustomerRepository.save(individualCustomer);

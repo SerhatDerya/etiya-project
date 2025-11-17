@@ -7,6 +7,7 @@ import com.etiya.customerservice.service.mappings.StatusMapper;
 import com.etiya.customerservice.service.requests.accountStatus.CreateStatusRequest;
 import com.etiya.customerservice.service.responses.accountStatus.CreatedStatusResponse;
 import com.etiya.customerservice.service.responses.accountStatus.GetListStatusResponse;
+import com.etiya.customerservice.service.rules.StatusBusinessRules;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,24 +16,20 @@ import java.util.List;
 public class StatusServiceImpl implements StatusService {
 
     private final StatusRepository statusRepository;
+    private final StatusBusinessRules statusBusinessRules;
 
-    public StatusServiceImpl(StatusRepository statusRepository) {
+    public StatusServiceImpl(StatusRepository statusRepository, StatusBusinessRules statusBusinessRules) {
         this.statusRepository = statusRepository;
+        this.statusBusinessRules = statusBusinessRules;
     }
 
     @Override
     public CreatedStatusResponse add(CreateStatusRequest request) {
+        statusBusinessRules.checkStatusExistsName(request.getName());
         Status status = StatusMapper.INSTANCE.statusFromCreateStatusRequest(request);
         Status result = statusRepository.save(status);
         CreatedStatusResponse response = StatusMapper.INSTANCE.createdStatusResponseFromStatus(result);
         return response;
-
-//        Status status = new Status();
-//        status.setName(request.getName());
-//        Status result = statusRepository.save(status);
-//        CreatedStatusResponse response = new CreatedStatusResponse();
-//        response.setId(result.getId());
-//        return response;
     }
 
     @Override

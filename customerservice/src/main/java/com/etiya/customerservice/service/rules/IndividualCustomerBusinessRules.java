@@ -1,4 +1,4 @@
-package com.etiya.customerservice.service.rules.customer;
+package com.etiya.customerservice.service.rules;
 
 import com.etiya.common.crosscuttingconcerns.exceptions.types.BusinessException;
 import com.etiya.common.localization.LocalizationService;
@@ -7,7 +7,6 @@ import com.etiya.customerservice.repository.IndividualCustomerRepository;
 import com.etiya.customerservice.service.messages.Messages;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -33,6 +32,11 @@ public class IndividualCustomerBusinessRules extends CustomerBusinessRules<Indiv
         if (existCustomer !=null && !existCustomer.getId().equals(id)) {
             throw new BusinessException(localizationService.getMessage(Messages.NationalIdentityExists));
         }
+    }
+
+    public IndividualCustomer getIndividualCustomerIfExists(UUID id) {
+       return individualCustomerRepository.findById(id)
+               .orElseThrow(() -> new BusinessException(localizationService.getMessage(Messages.IndividualCustomerNotFound)));
     }
 
 

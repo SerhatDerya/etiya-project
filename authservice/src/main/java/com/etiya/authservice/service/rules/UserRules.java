@@ -2,6 +2,9 @@ package com.etiya.authservice.service.rules;
 
 import com.etiya.authservice.repository.UserRepository;
 import com.etiya.common.localization.LocalizationService;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,5 +21,9 @@ public class UserRules {
         if (userRepository.existsByUsernameIgnoreCase(username)) {
             throw new RuntimeException("Username already exists!");
         }
+    }
+    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+        return userRepository.findByUsername(userName)
+                .orElseThrow(() -> new AccessDeniedException("Login Failed"));
     }
 }

@@ -12,8 +12,8 @@ import com.etiya.customerservice.service.requests.contactMedium.UpdateContactMed
 import com.etiya.customerservice.service.responses.contactMedium.CreatedContactMediumResponse;
 import com.etiya.customerservice.service.responses.contactMedium.GetListContactMediumResponse;
 import com.etiya.customerservice.service.responses.contactMedium.UpdatedContactMediumResponse;
-import com.etiya.customerservice.service.rules.customer.ContactMediumBusinessRules;
-import com.etiya.customerservice.service.rules.customer.CustomerBusinessRules;
+import com.etiya.customerservice.service.rules.ContactMediumBusinessRules;
+import com.etiya.customerservice.service.rules.CustomerBusinessRules;
 import com.etiya.customerservice.transport.kafka.producer.contactMedium.CreateContactMediumProducer;
 import com.etiya.customerservice.transport.kafka.producer.contactMedium.DeleteContactMediumProducer;
 import com.etiya.customerservice.transport.kafka.producer.contactMedium.UpdateContactMediumProducer;
@@ -61,7 +61,7 @@ public class ContactMediumServiceImpl implements ContactMediumService {
 
     @Override
     public UpdatedContactMediumResponse update(UUID id, UpdateContactMediumRequest request) {
-        ContactMedium contactMedium = contactMediumRepository.findById(id).orElseThrow(() -> new RuntimeException("Contact Medium could not found"));
+        ContactMedium contactMedium = contactMediumBusinessRules.getContactMediumIfExists(id);
         ContactMediumMapper.INSTANCE.contactMediumFromUpdateContactMediumRequest(request, contactMedium);
         ContactMedium result = contactMediumRepository.save(contactMedium);
         UpdateContactMediumEvent event =  ContactMediumMapper.INSTANCE.updateContactMediumEventFromContactMedium(result);
@@ -73,7 +73,7 @@ public class ContactMediumServiceImpl implements ContactMediumService {
 
     @Override
     public void delete(UUID id) {
-        ContactMedium contactMedium = contactMediumRepository.findById(id).orElseThrow(() -> new RuntimeException("Contact Medium could not found"));
+        ContactMedium contactMedium = contactMediumBusinessRules.getContactMediumIfExists(id);
         DeleteContactMediumEvent event = new DeleteContactMediumEvent(
                 contactMedium.getId().toString(),
                 contactMedium.getCustomer().getId().toString()

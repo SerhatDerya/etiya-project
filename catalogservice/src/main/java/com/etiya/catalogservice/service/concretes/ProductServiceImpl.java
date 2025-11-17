@@ -7,16 +7,21 @@ import com.etiya.catalogservice.service.mappings.ProductMapper;
 import com.etiya.catalogservice.service.requests.CreateProductRequest;
 import com.etiya.catalogservice.service.responses.product.CreatedProductResponse;
 import com.etiya.catalogservice.service.responses.product.GetListProductResponse;
+import com.etiya.catalogservice.service.rules.ProductBusinessRules;
+import com.etiya.common.crosscuttingconcerns.exceptions.types.BusinessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
+    private final ProductBusinessRules productBusinessRules;
 
-    public ProductServiceImpl(ProductRepository productRepository) {
+    public ProductServiceImpl(ProductRepository productRepository, ProductBusinessRules productBusinessRules) {
         this.productRepository = productRepository;
+        this.productBusinessRules = productBusinessRules;
     }
 
     @Override
@@ -32,4 +37,11 @@ public class ProductServiceImpl implements ProductService {
         List<Product> products = productRepository.findAll();
         return ProductMapper.INSTANCE.getListProductResponseFromProduct(products);
     }
+
+    @Override
+    public CreatedProductResponse getById(UUID id) {
+        Product product = productBusinessRules.getProductIfExists(id);
+        return ProductMapper.INSTANCE.createdProductResponseFromProduct(product);
+    }
+
 }

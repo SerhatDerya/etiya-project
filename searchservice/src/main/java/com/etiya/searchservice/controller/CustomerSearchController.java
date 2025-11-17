@@ -1,7 +1,7 @@
 package com.etiya.searchservice.controller;
 
 import com.etiya.searchservice.domain.CustomerSearch;
-import com.etiya.searchservice.service.customer.CustomerSearchService;
+import com.etiya.searchservice.service.abstracts.CustomerSearchService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
