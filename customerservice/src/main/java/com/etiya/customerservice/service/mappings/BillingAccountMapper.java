@@ -2,6 +2,7 @@ package com.etiya.customerservice.service.mappings;
 
 import com.etiya.common.events.billingAccount.CreateBillingAccountEvent;
 import com.etiya.common.events.billingAccount.UpdateBillingAccountEvent;
+import com.etiya.common.responses.BillingAccountResponse;
 import com.etiya.customerservice.domain.entities.BillingAccount;
 import com.etiya.customerservice.service.requests.billingAccount.CreateBillingAccountRequest;
 import com.etiya.customerservice.service.requests.billingAccount.UpdateBillingAccountRequest;
@@ -69,6 +70,8 @@ public interface BillingAccountMapper {
     @Mapping(target = "statusName",source = "status.name")
     @Mapping(target = "typeName",source = "type.name")
     UpdateBillingAccountEvent updateBillingAccountEventFromBillingAccount(BillingAccount billingAccount);
+
+    BillingAccountResponse billingAccountResponseFromBillingAccount(BillingAccount billingAccount);
 
 
 }

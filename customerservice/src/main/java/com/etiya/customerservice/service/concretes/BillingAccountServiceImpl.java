@@ -3,6 +3,7 @@ package com.etiya.customerservice.service.concretes;
 import com.etiya.common.events.billingAccount.CreateBillingAccountEvent;
 import com.etiya.common.events.billingAccount.DeleteBillingAccountEvent;
 import com.etiya.common.events.billingAccount.UpdateBillingAccountEvent;
+import com.etiya.common.responses.BillingAccountResponse;
 import com.etiya.customerservice.domain.entities.*;
 import com.etiya.customerservice.repository.AddressRepository;
 import com.etiya.customerservice.repository.BillingAccountRepository;
@@ -96,5 +97,11 @@ public class BillingAccountServiceImpl implements BillingAccountService {
         );
         deleteBillingAccountProducer.produceBillingAccountDeleted(event);
         billingAccountRepository.save(billingAccount);
+    }
+
+    @Override
+    public BillingAccountResponse getById(UUID id) {
+        BillingAccount billingAccount = billingAccountBusinessRules.getBillingAccountIfExists(id);
+        return BillingAccountMapper.INSTANCE.billingAccountResponseFromBillingAccount(billingAccount);
     }
 }

@@ -4,6 +4,7 @@ import com.etiya.catalogservice.domain.entities.Product;
 import com.etiya.catalogservice.service.requests.CreateProductRequest;
 import com.etiya.catalogservice.service.responses.product.CreatedProductResponse;
 import com.etiya.catalogservice.service.responses.product.GetListProductResponse;
+import com.etiya.common.responses.ProductResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
@@ -27,4 +28,6 @@ public interface ProductMapper {
     @Mapping(target = "catalogId",source = "catalog.id")
     GetListProductResponse getListProductResponseFromProduct(Product products);
     List<GetListProductResponse> getListProductResponseFromProduct(List<Product> products);
+
+    ProductResponse productResponseFromProduct(Product product);
 }

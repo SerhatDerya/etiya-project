@@ -4,6 +4,7 @@ import com.etiya.catalogservice.service.abstracts.ProductService;
 import com.etiya.catalogservice.service.requests.CreateProductRequest;
 import com.etiya.catalogservice.service.responses.product.CreatedProductResponse;
 import com.etiya.catalogservice.service.responses.product.GetListProductResponse;
+import com.etiya.common.responses.ProductResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -35,5 +36,11 @@ public class ProductController {
     @ResponseStatus(HttpStatus.OK)
     public CreatedProductResponse getById(@PathVariable UUID id){
         return productService.getById(id);
+    }
+
+    @GetMapping("/response/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ProductResponse getProductById(@PathVariable UUID id) {
+        return productService.getProductById(id);
     }
 }

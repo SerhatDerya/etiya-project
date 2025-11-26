@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.function.Consumer;
 
-//@Service
+
 @Configuration
 public class CreatedCustomerConsumer {
 

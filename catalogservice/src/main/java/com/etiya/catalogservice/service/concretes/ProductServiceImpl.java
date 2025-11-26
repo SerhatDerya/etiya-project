@@ -9,6 +9,7 @@ import com.etiya.catalogservice.service.responses.product.CreatedProductResponse
 import com.etiya.catalogservice.service.responses.product.GetListProductResponse;
 import com.etiya.catalogservice.service.rules.ProductBusinessRules;
 import com.etiya.common.crosscuttingconcerns.exceptions.types.BusinessException;
+import com.etiya.common.responses.ProductResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,6 +43,12 @@ public class ProductServiceImpl implements ProductService {
     public CreatedProductResponse getById(UUID id) {
         Product product = productBusinessRules.getProductIfExists(id);
         return ProductMapper.INSTANCE.createdProductResponseFromProduct(product);
+    }
+
+    @Override
+    public ProductResponse getProductById(UUID id) {
+        Product product = productBusinessRules.getProductIfExists(id);
+        return ProductMapper.INSTANCE.productResponseFromProduct(product);
     }
 
 }
